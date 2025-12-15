@@ -9,12 +9,12 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Roboto, Helvetica, Arial, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                   "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #111;
     }
 
-    /* NAV */
+    /* ===================== NAV — DESKTOP (UNCHANGED) ===================== */
     nav {
       position: fixed;
       top: 0;
@@ -22,13 +22,12 @@
       z-index: 100;
 
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
 
       padding: 1rem 2rem;
-
-      /* No full-width background/blur */
-      background: transparent;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
 
       transition: opacity 200ms ease, transform 200ms ease;
     }
@@ -39,22 +38,12 @@
       pointer-events: none;
     }
 
-    /* ONLY the menu options are blurred */
     .nav-left {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(6px);
-      border-radius: 12px;
-      padding: 0.75rem 1rem;
-
       display: flex;
-      justify-content: center; /* desktop unchanged */
+      justify-content: center;
       gap: 2rem;
       flex: 1;
       flex-wrap: wrap;
-
-      width: fit-content;
-      max-width: 100%;
-      margin: 0 auto; /* keep centered on desktop */
     }
 
     nav a {
@@ -67,19 +56,12 @@
 
     nav a:hover { text-decoration: underline; }
 
-    /* Language switch: explicitly NOT blurred and NOT boxed */
     .lang-switch {
       display: flex;
       gap: 0.5rem;
       align-items: center;
       justify-content: flex-end;
-
-      /* ensure it remains "out" of any pill styling */
-      background: transparent;
-      backdrop-filter: none;
-      padding: 0;
-      border-radius: 0;
-      width: fit-content;
+      min-width: 120px;
     }
 
     .lang-btn {
@@ -98,30 +80,50 @@
       background: rgba(0,0,0,0.08);
     }
 
-    /* PHONE ONLY: menu becomes vertical, top-left; language stays top-right */
+    /* ===================== PHONE ONLY ===================== */
     @media (max-width: 767px) {
+      /* remove full-width blur */
       nav {
+        background: transparent;
+        backdrop-filter: none;
         padding: 0.75rem 1rem;
         align-items: flex-start;
       }
 
+      /* tight blurred pill around menu text only */
       .nav-left {
-        justify-content: flex-start;
+        flex: 0 0 auto;
+        width: fit-content;
+        max-width: calc(100vw - 2rem);
+
+        display: inline-flex;
         flex-direction: column;
+        align-items: flex-start;
         gap: 0.75rem;
         flex-wrap: nowrap;
-        margin: 0; /* top-left on phone */
+
+        padding: 0.75rem 0.9rem;
+        border-radius: 12px;
+
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(6px);
+
+        margin: 0; /* top-left */
       }
 
-      nav a { font-size: 0.85rem; }
-      .lang-switch { gap: 0.4rem; }
+      /* language switch stays outside blur */
+      .lang-switch {
+        min-width: auto;
+        background: transparent;
+        backdrop-filter: none;
+        padding: 0;
+      }
     }
 
-    /* SECTIONS */
+    /* ===================== SECTIONS ===================== */
     section {
       min-height: 100vh;
       width: 100%;
-
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -166,27 +168,27 @@
 </head>
 
 <body>
+
   <!-- NAV -->
   <nav id="site-nav">
     <div class="nav-left">
-      <a href="#hero"           data-i18n="nav.home">Home</a>
-      <a href="#details"        data-i18n="nav.details">Dettagli</a>
-      <a href="#travel"         data-i18n="nav.travel">Come arrivare</a>
-      <a href="#accommodation"  data-i18n="nav.accommodation">Dove alloggiare</a>
-      <a href="#gift"           data-i18n="nav.gift">Regalo di nozze</a>
-      <a href="#rsvp"           data-i18n="nav.rsvp">RSVP</a>
+      <a href="#hero"          data-i18n="nav.home">Home</a>
+      <a href="#details"       data-i18n="nav.details">Dettagli</a>
+      <a href="#travel"        data-i18n="nav.travel">Come arrivare</a>
+      <a href="#accommodation" data-i18n="nav.accommodation">Dove alloggiare</a>
+      <a href="#gift"          data-i18n="nav.gift">Regalo di nozze</a>
+      <a href="#rsvp"          data-i18n="nav.rsvp">RSVP</a>
     </div>
 
-    <div class="lang-switch" aria-label="Language switch">
-      <button class="lang-btn" type="button" data-lang="it" aria-pressed="true">IT</button>
-      <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="it" aria-pressed="true">IT</button>
+      <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
     </div>
   </nav>
 
   <!-- HERO -->
   <section id="hero"></section>
 
-  <!-- Sections -->
   <section id="details">
     <div class="content">
       <h2 data-i18n="details.title">Dettagli</h2>
@@ -224,7 +226,6 @@
 
   <script>
     (function () {
-      /* ---------- i18n ---------- */
       const translations = {
         it: {
           "nav.home": "Home",
@@ -260,49 +261,32 @@
         }
       };
 
-      const langButtons = document.querySelectorAll(".lang-btn");
-      const i18nNodes = document.querySelectorAll("[data-i18n]");
+      const buttons = document.querySelectorAll(".lang-btn");
+      const nodes = document.querySelectorAll("[data-i18n]");
 
       function setLanguage(lang) {
         document.documentElement.lang = lang;
-
-        i18nNodes.forEach(node => {
-          const key = node.getAttribute("data-i18n");
-          const value = translations[lang] && translations[lang][key];
-          if (typeof value === "string") node.textContent = value;
+        nodes.forEach(n => {
+          const key = n.dataset.i18n;
+          if (translations[lang][key]) n.textContent = translations[lang][key];
         });
-
-        langButtons.forEach(btn => {
-          btn.setAttribute("aria-pressed", String(btn.getAttribute("data-lang") === lang));
-        });
-
-        try { localStorage.setItem("wedding_lang", lang); } catch (_) {}
+        buttons.forEach(b =>
+          b.setAttribute("aria-pressed", b.dataset.lang === lang)
+        );
+        localStorage.setItem("wedding_lang", lang);
       }
 
-      langButtons.forEach(btn => {
-        btn.addEventListener("click", () => setLanguage(btn.getAttribute("data-lang")));
-      });
+      buttons.forEach(b => b.onclick = () => setLanguage(b.dataset.lang));
+      setLanguage(localStorage.getItem("wedding_lang") || "it");
 
-      let initial = "it";
-      try {
-        const saved = localStorage.getItem("wedding_lang");
-        if (saved === "it" || saved === "en") initial = saved;
-      } catch (_) {}
-      setLanguage(initial);
-
-      /* ---------- show nav only on hero ---------- */
+      /* nav visible only on hero */
       const nav = document.getElementById("site-nav");
       const hero = document.getElementById("hero");
 
-      nav.classList.remove("is-hidden");
-
       const observer = new IntersectionObserver(
-        ([entry]) => {
-          nav.classList.toggle("is-hidden", !entry.isIntersecting);
-        },
+        ([e]) => nav.classList.toggle("is-hidden", !e.isIntersecting),
         { threshold: 0.02 }
       );
-
       observer.observe(hero);
     })();
   </script>
