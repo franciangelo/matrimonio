@@ -9,6 +9,7 @@
     /* ---- Reset ---- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #000;
@@ -30,6 +31,7 @@
       z-index: 1000;
       border-bottom: 1px solid rgba(0,0,0,0.06);
     }
+
     nav a {
       text-decoration: none;
       color: #000;
@@ -37,6 +39,7 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
+
     nav a:hover { opacity: 0.65; }
 
     /* ---- Sections ---- */
@@ -50,44 +53,38 @@
       background: #fff;
     }
 
-    /* ---- Hero figure (Option A) ---- */
+    /* ---- Hero illustration ---- */
     .hero-figure {
+      margin-top: 64px; /* keep clear of fixed nav */
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 18px;
-      margin-top: 64px; /* ensure content doesn't sit under the nav */
+      justify-content: center;
     }
 
     .hero-image {
-      max-height: 78vh;
+      max-height: 82vh;
       max-width: min(92vw, 900px);
       object-fit: contain;
       display: block;
     }
 
-    /* ---- Simple content blocks ---- */
+    /* ---- Content blocks ---- */
     .content {
       max-width: 720px;
       padding: 28px 22px;
     }
 
-    h1 {
-      font-size: 2.6rem;
-      font-weight: 350;
-      line-height: 1.15;
-    }
     h2 {
       font-size: 2rem;
       font-weight: 350;
       margin-bottom: 12px;
     }
+
     p {
       font-size: 1.05rem;
       line-height: 1.65;
     }
 
-    /* Optional: a subtle divider line between sections */
     .divider {
       width: min(720px, 92vw);
       height: 1px;
@@ -98,16 +95,16 @@
     /* ---- Mobile ---- */
     @media (max-width: 600px) {
       nav { gap: 16px; }
-      h1 { font-size: 2.0rem; }
       h2 { font-size: 1.5rem; }
       p { font-size: 1.0rem; }
-      .hero-image { max-height: 72vh; }
+      .hero-image { max-height: 74vh; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Top menu -->
+
+  <!-- Navigation -->
   <nav>
     <a href="#home">Home</a>
     <a href="#story">Our Story</a>
@@ -115,70 +112,47 @@
     <a href="#rsvp">RSVP</a>
   </nav>
 
-  <!-- HERO (illustration as a centered figure, not a background) -->
-  <section id="home" aria-label="Home">
+  <!-- HERO -->
+  <section id="home">
     <div class="hero-figure">
       <img src="hero.jpeg" alt="Wedding illustration" class="hero-image" />
-
-      <!-- Optional text under the illustration -->
-      <div class="content">
-        <h1>Angelo &amp; Francesca</h1>
-        <p>6 giugno 2026</p>
-      </div>
     </div>
   </section>
 
-  <!-- SECTION: Our Story -->
-  <section id="story" aria-label="Our Story">
+  <!-- STORY -->
+  <section id="story">
     <div class="content">
       <h2>Our Story</h2>
       <p>
-        Write a short paragraph here: how you met, your favorite shared place,
-        or anything you’d like guests to know before the day.
+        Write a short paragraph here describing how you met or what you would
+        like your guests to know.
       </p>
       <div class="divider"></div>
-      <p style="margin-top: 18px;">
-        If you later want another illustration in this section, the simplest approach is to add an
-        <code>&lt;img&gt;</code> (like the hero) and keep it centered.
-      </p>
     </div>
   </section>
 
-  <!-- SECTION: Details -->
-  <section id="details" aria-label="Details">
+  <!-- DETAILS -->
+  <section id="details">
     <div class="content">
       <h2>Details</h2>
       <p>
-        Ceremony and reception information goes here. You can include address, schedule,
-        dress code, and any travel notes.
+        Ceremony and reception information goes here: location, time,
+        dress code, and travel notes.
       </p>
       <div class="divider"></div>
-      <p style="margin-top: 18px;">
-        Example:
-        <br><br>
-        <strong>Ceremony:</strong> Location, time<br>
-        <strong>Reception:</strong> Location, time<br>
-        <strong>Dress code:</strong> ...
-      </p>
     </div>
   </section>
 
-  <!-- SECTION: RSVP -->
-  <section id="rsvp" aria-label="RSVP">
+  <!-- RSVP -->
+  <section id="rsvp">
     <div class="content">
       <h2>RSVP</h2>
       <p>
-        Add an email address, a phone number, or replace this section with a link to a form.
+        Add an email address or a link to a form.
       </p>
       <div class="divider"></div>
-      <p style="margin-top: 18px;">
-        Example link:
-        <br>
-        <a href="https://example.com" style="color:#000; text-decoration: underline;">
-          RSVP form
-        </a>
-      </p>
     </div>
   </section>
+
 </body>
 </html>
