@@ -18,7 +18,7 @@
     html, body { background: #fff; }
     html { color-scheme: light; }
 
-    /* ===================== NAV — DESKTOP (UNCHANGED) ===================== */
+    /* ===================== NAV (DEFAULT = DESKTOP/TABLET) ===================== */
     nav {
       position: fixed;
       top: 0;
@@ -84,20 +84,55 @@
       background: rgba(0,0,0,0.08);
     }
 
-    /* ===================== "PHONE" LAYOUT = PORTRAIT (CONSISTENT) ===================== */
-    @media (max-aspect-ratio: 1/1) {
+    /* ===================== SECTIONS ===================== */
+    section {
+      min-height: 100vh;
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+    }
+
+    /* ===================== HERO (DEFAULT = DESKTOP/TABLET) ===================== */
+    #hero {
+      background-image: url("hero.jpeg");
+      background-repeat: no-repeat;
+      background-color: #fff;
+
+      /*
+        DESKTOP/TABLET DEFAULTS:
+
+        To change IMAGE SIZE on desktop:
+          - Use "cover" to fill the whole screen (cropping will happen)
+          - Use "contain" to show the whole image (may leave empty margins)
+          - Use percentages for fine control (e.g. "110% auto" or "auto 120%")
+
+        To change IMAGE POSITION on desktop:
+          - "50% 50%" is centered
+          - "50% 20%" moves image UP (shows more bottom)
+          - "50% 80%" moves image DOWN (shows more top)
+          - "center top", "center bottom" are also valid
+      */
+      background-size: auto 115%;   /* desktop size: make the image a bit bigger */
+      background-position: 50% 50%; /* desktop position: centered */
+    }
+
+    /* ===================== PHONE (STANDARD: WIDTH BREAKPOINT) ===================== */
+    @media (max-width: 768px) {
+
+      /* NAV on phone: stacked menu box on the left */
       nav {
         background: transparent;
         backdrop-filter: none;
         padding: 0.75rem 1rem;
         align-items: flex-start;
       }
-    
-      @media (max-aspect-ratio: 1/1) {
+
       nav a {
-        font-size: 0.9rem; /* adjust as desired */
-        letter-spacing: 0.06em; /* optional: tighter spacing on small screens */
-        }
+        font-size: 0.9rem;       /* phone-only menu font size */
+        letter-spacing: 0.06em;  /* optional: tighter spacing on small screens */
       }
 
       .nav-left {
@@ -110,7 +145,7 @@
         align-items: flex-start;
         gap: 0.75rem;
         flex-wrap: nowrap;
-        
+
         padding: 0.75rem 0.9rem;
         border-radius: 12px;
 
@@ -126,35 +161,29 @@
         backdrop-filter: none;
         padding: 0;
       }
-    }
 
-    /* ===================== SECTIONS ===================== */
-    section {
-      min-height: 100vh;
-      width: 100%;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4rem 2rem;
-    }
-
-    /* ===================== HERO (CONSISTENT ORIENTATION RULES) ===================== */
-    #hero {
-      background-image: url("hero.jpeg");
-      background-repeat: no-repeat;
-      background-color: #fff;
-
-      /* Portrait / tall screens (default) */
-      background-size: contain;
-      background-position: 50% 50%;
-    }
-
-    /* Landscape / wide screens */
-    @media (min-aspect-ratio: 1/1) {
+      /* HERO on phone */
       #hero {
-        background-size: auto 110%;
-        background-position: 50% 50%;
+        /*
+          PHONE OVERRIDES:
+
+          Change IMAGE SIZE on phone:
+            - "contain" shows the whole photo (no cropping), often best on phones
+            - "cover" fills screen but crops, sometimes faces get cut off
+            - Percentages give fine control:
+                background-size: 92% auto;  (slightly smaller)
+                background-size: 110% auto; (slightly larger)
+
+          Change IMAGE POSITION on phone:
+            - first value is horizontal (0% left, 50% center, 100% right)
+            - second value is vertical   (0% top,  50% center, 100% bottom)
+            Examples:
+              background-position: 50% 15%;  (move image UP)
+              background-position: 50% 70%;  (move image DOWN)
+        */
+
+        background-size: contain;     /* phone size: show whole image */
+        background-position: 50% 45%; /* phone position: slightly higher than center */
       }
     }
 
