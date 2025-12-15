@@ -63,15 +63,16 @@
     #details { background-image: url("./details.jpeg"); } /* optional */
     #rsvp { background-image: url("./rsvp.jpeg"); }       /* optional */
 
-    /* ---- Desktop: show vertical hero fully, centered ---- */
 @media (min-width: 900px) {
   #home {
-    background-size: contain;
+    background-size: 115%;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #ffffff;
+    overflow: hidden;
   }
 }
+
     /* ---- Content blocks (light box so black text stays readable) ---- */
     .content {
       max-width: 720px;
