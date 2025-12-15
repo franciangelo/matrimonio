@@ -35,6 +35,7 @@
       justify-content: center;
       gap: 2rem;
       flex: 1;
+      flex-wrap: wrap;
     }
 
     nav a {
@@ -47,13 +48,13 @@
 
     nav a:hover { text-decoration: underline; }
 
-    /* Language switch on extreme right */
+    /* Language switch (extreme right) */
     .lang-switch {
       display: flex;
       gap: 0.5rem;
       align-items: center;
       justify-content: flex-end;
-      min-width: 120px; /* keeps right edge stable */
+      min-width: 120px;
     }
 
     .lang-btn {
@@ -76,6 +77,7 @@
     section {
       min-height: 100vh;
       width: 100%;
+
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -110,7 +112,7 @@
     }
 
     .content h2 { font-weight: 400; margin-bottom: 1rem; }
-    .content p { line-height: 1.6; }
+    .content p { line-height: 1.6; font-size: 1.05rem; }
 
     .dark .content {
       background: rgba(0, 0, 0, 0.6);
@@ -123,10 +125,11 @@
   <!-- NAV -->
   <nav>
     <div class="nav-left">
-      <a href="#hero"   data-i18n="nav.home">Home</a>
-      <a href="#details" data-i18n="nav.details">Dettagli</a>
-      <a href="#travel"  data-i18n="nav.travel">Viaggio</a>
-      <a href="#rsvp"    data-i18n="nav.rsvp">RSVP</a>
+      <a href="#hero"         data-i18n="nav.home">Home</a>
+      <a href="#details"      data-i18n="nav.details">Dettagli</a>
+      <a href="#travel"       data-i18n="nav.travel">Come arrivare</a>
+      <a href="#accommodation" data-i18n="nav.accommodation">Alloggi</a>
+      <a href="#rsvp"         data-i18n="nav.rsvp">RSVP</a>
     </div>
 
     <div class="lang-switch" aria-label="Language switch">
@@ -138,25 +141,32 @@
   <!-- HERO (image only) -->
   <section id="hero"></section>
 
-  <!-- Sections (examples; adjust text as you like) -->
+  <!-- Sections -->
   <section id="details" style="background-image: url('details.jpeg');">
     <div class="content">
       <h2 data-i18n="details.title">Dettagli</h2>
-      <p data-i18n="details.body">Qui potete inserire informazioni su cerimonia e ricevimento.</p>
+      <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
     </div>
   </section>
 
   <section id="travel">
     <div class="content">
       <h2 data-i18n="travel.title">Come arrivare</h2>
-      <p data-i18n="travel.body">Qui potete inserire indicazioni su viaggio e alloggio.</p>
+      <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
+    </div>
+  </section>
+
+  <section id="accommodation">
+    <div class="content">
+      <h2 data-i18n="accommodation.title">Alloggi</h2>
+      <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
     </div>
   </section>
 
   <section id="rsvp" class="dark" style="background-image: url('rsvp.jpeg');">
     <div class="content">
       <h2 data-i18n="rsvp.title">RSVP</h2>
-      <p data-i18n="rsvp.body">Qui potete inserire istruzioni RSVP o un link.</p>
+      <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
     </div>
   </section>
 
@@ -167,31 +177,29 @@
           "nav.home": "Home",
           "nav.details": "Dettagli",
           "nav.travel": "Come arrivare",
+          "nav.accommodation": "Alloggi",
           "nav.rsvp": "RSVP",
 
           "details.title": "Dettagli",
-          "details.body": "Qui potete inserire informazioni su cerimonia e ricevimento.",
-
           "travel.title": "Come arrivare",
-          "travel.body": "Qui potete inserire indicazioni su viaggio e alloggio.",
-
+          "accommodation.title": "Alloggi",
           "rsvp.title": "RSVP",
-          "rsvp.body": "Qui potete inserire istruzioni RSVP o un link."
+
+          "common.comingSoon": "Maggiori informazioni arriveranno presto."
         },
         en: {
           "nav.home": "Home",
           "nav.details": "Details",
           "nav.travel": "Travel",
+          "nav.accommodation": "Accommodation",
           "nav.rsvp": "RSVP",
 
           "details.title": "Details",
-          "details.body": "Ceremony and reception information can go here.",
-
           "travel.title": "Travel",
-          "travel.body": "Travel and accommodation details can go here.",
-
+          "accommodation.title": "Accommodation",
           "rsvp.title": "RSVP",
-          "rsvp.body": "RSVP instructions or a link can go here."
+
+          "common.comingSoon": "More information coming soon."
         }
       };
 
@@ -199,32 +207,26 @@
       const i18nNodes = document.querySelectorAll("[data-i18n]");
 
       function setLanguage(lang) {
-        // Update document language (helps accessibility and hyphenation)
         document.documentElement.lang = lang;
 
-        // Swap text content
         i18nNodes.forEach(node => {
           const key = node.getAttribute("data-i18n");
           const value = translations[lang] && translations[lang][key];
           if (typeof value === "string") node.textContent = value;
         });
 
-        // Toggle pressed state
         langButtons.forEach(btn => {
           const isActive = btn.getAttribute("data-lang") === lang;
           btn.setAttribute("aria-pressed", String(isActive));
         });
 
-        // Persist choice
         try { localStorage.setItem("wedding_lang", lang); } catch (_) {}
       }
 
-      // Click handlers
       langButtons.forEach(btn => {
         btn.addEventListener("click", () => setLanguage(btn.getAttribute("data-lang")));
       });
 
-      // Default IT; restore saved preference if present
       let initial = "it";
       try {
         const saved = localStorage.getItem("wedding_lang");
