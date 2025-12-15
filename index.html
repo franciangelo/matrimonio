@@ -63,20 +63,37 @@
     #home {
       padding: 0;
       background-image: url("./hero.jpeg");
+      background-color: #fff;
+      position: relative; /* needed for the desktop pseudo-element fix */
+      overflow: hidden;   /* keeps the clipped pseudo-element contained */
     }
 
     #story   { background-image: url("./story.jpeg"); }
     #details { background-image: url("./details.jpeg"); }
     #rsvp    { background-image: url("./rsvp.jpeg"); }
 
-    /* ---- Desktop framing ---- */
+    /* ---- Desktop framing (with halo/contour fix) ---- */
     @media (min-width: 900px) {
+      /* Stop painting the hero directly to avoid Safari edge artifacts */
       #home {
-        background-size: 20%;
+        background-image: none;
+      }
+
+      /* Paint it on a pseudo-element and clip ~1–2px off the edges */
+      #home::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background-image: url("./hero.jpeg");
+        background-size: 90%;
         background-position: center 80%;
         background-repeat: no-repeat;
         background-color: #ffffff;
-        overflow: hidden;
+
+        /* The actual fix: remove the boundary where the halo appears */
+        clip-path: inset(2px);
+        transform: translateZ(0); /* helps Safari compositing */
       }
     }
 
