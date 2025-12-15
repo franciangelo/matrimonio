@@ -1,155 +1,164 @@
-<!doctype html>
-<html class="no-js" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Ram & Antara getting hitched!</title>
-    <meta name="description" content="We would like to invite you to our big day.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#ffffff">
-    <meta property="og:title" content="Angelo & Francesca getting hitched">
-    <meta property="og:description" content="We would like to invite you to our big day.">
-    <meta property="og:image" content="img/hero-mini.jpg">
-    <meta property="og:type" content="website">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding</title>
 
-    <link rel="stylesheet" href="css/normalize.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.css">
-    <link rel="stylesheet" href="css/flexslider.css">
-    <link rel="stylesheet" href="css/styles.min.css">
-    <link rel="stylesheet" href="css/queries.css">
+    <style>
+        /* ---- Reset / base ---- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #000000;
+        }
+
+        /* ---- Navigation ---- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #000000;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        nav a:hover {
+            opacity: 0.65;
+        }
+
+        /* ---- Sections ---- */
+        section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 24px;
+            text-align: center;
+        }
+
+        section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+
+        /* ---- Background images ---- */
+        #hero::before {
+            background-image: url("hero.jpeg");
+        }
+
+        #story::before {
+            background-image: url("story.jpeg"); /* optional */
+        }
+
+        #details::before {
+            background-image: url("details.jpeg"); /* optional */
+        }
+
+        /* ---- Light overlay for readability ---- */
+        .overlay {
+            max-width: 720px;
+            background: rgba(255, 255, 255, 0.75);
+            padding: 48px 32px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* ---- Mobile adjustments ---- */
+        @media (max-width: 600px) {
+            nav {
+                gap: 16px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
 </head>
-<body id="top">
 
-<section class="hero">
-    <section class="navigation">
-        <header>
-            <div class="header-content">
-                <div class="logo"><a href="#"></a></div>
-                <div class="header-nav">
-                    <nav>
-                        <ul class="primary-nav">
-                            <li><a href="#intro">How we met</a></li>
-                            <li><a href="#events">Events</a></li>
-                            <li><a href="#instagram">Instagram</a></li>
-                            <li><a href="#eng-pics">Engagement</a></li>
-                            <li class="hidden-sm hidden-xs"><a href="#video-bg">Glimpse of the city</a></li>
-                        </ul>
-                        <ul class="member-actions">
-                            <li><a href="#map" class="login">Venue</a></li>
-                            <li><a href="#rsvp" class="btn-white btn-small">RSVP</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="navicon">
-                    <a class="nav-toggle" href="#"><span></span></a>
-                </div>
-            </div>
-        </header>
+<body>
+
+    <nav>
+        <a href="#hero">Home</a>
+        <a href="#story">Our Story</a>
+        <a href="#details">Details</a>
+    </nav>
+
+    <section id="hero">
+        <div class="overlay">
+            <h1>Alex & Jordan</h1>
+            <p>September 21, 2026</p>
+        </div>
     </section>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="hero-content text-center">
-                </div>
-            </div>
+    <section id="story">
+        <div class="overlay">
+            <h2>Our Story</h2>
+            <p>
+                A few lines about how you met, where you are now,
+                or whatever you want to share.
+            </p>
         </div>
-        <div class="row">
-            <div class="col-sm-4 hidden-xs"></div>
-            <div class="col-sm-4 hidden-xs text-center"><a href="#rsvp"
-                                                           class="btn btn-accent btn-large rsvp-btn">RSVP</a></div>
-            <div class="col-sm-4 hidden-xs"></div>
+    </section>
+
+    <section id="details">
+        <div class="overlay">
+            <h2>Details</h2>
+            <p>
+                Location, schedule, dress code, or a short message
+                for your guests.
+            </p>
         </div>
-    </div>
-    <div class="down-arrow floating-arrow"><a href="#invitation"><i class="fa fa-angle-down"></i></a></div>
-</section>
-
-<section id="invitation" class="section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h3>We are getting hitched</h3>
-                <p>The dates are 27th & 28th of November '17 and we would like you to be a part of it.</p>
-                <div class="share-bar"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="intro">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h3 class="header">How we met</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 hidden-sm hidden-xs"></div>
-            <div class="col-md-6">
-                <p>
-                    I first saw Antara in the Fall of 2008 when we started our undergrad...
-                </p>
-            </div>
-            <div class="col-md-3 hidden-sm hidden-xs"></div>
-        </div>
-    </div>
-</section>
-
-<section id="instagram" class="section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h3>A picture is worth a thousand words!</h3>
-                <p>Help us capture the moment...</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="eng-pics" class="section-padding">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h3 class="header">Engagement Pics</h3>
-            </div>
-        </div>
-        <!-- All engagement images removed -->
-    </div>
-</section>
-
-<section id="video-bg" class="hidden-sm hidden-xs">
-    <div id="bgndVideo" class="player"
-         data-property="{videoURL:'https://youtu.be/9giqL1H6yRs',containment:'#video-bg',autoPlay:true, mute:true, showControls:false, startAt:80, stopAt:259, opacity:1}">
-    </div>
-    <div id="video-content">
-        <h5>Kolkata</h5>
-        <p>City of joy</p>
-    </div>
-</section>
-
-<section id="map" class="section-padding">
-    <div class="text-center">
-        <h3>How do I get there?</h3>
-        <p>It's way easier than you think!</p>
-    </div>
-    <div id="map-canvas"></div>
-</section>
-
-<section class="rsvp text-center" id="rsvp">
-    <!-- RSVP unchanged -->
-</section>
-
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 text-center content">
-                <span class="to-top-wrapper"><a href="#top" class="to-top"><i class="fa fa-angle-up"></i></a></span>
-                <p>Crafted by Ram with lots of <span class="fa fa-heart pulse2"></span> for Antara</p>
-            </div>
-        </div>
-    </div>
-</footer>
+    </section>
 
 </body>
 </html>
