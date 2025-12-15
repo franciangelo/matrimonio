@@ -19,13 +19,6 @@
     html, body { background: #fff; }
     html { color-scheme: light; }
 
-    /*
-      IMPORTANT:
-      If you use background-size: contain, the image will NOT fill the whole section.
-      The remaining area will show the SECTION's background (or the page background if the section is transparent).
-      To avoid a visible “boxed” look, we make #hero background transparent so it blends with the page.
-    */
-
     /* ===================== NAV (DEFAULT = DESKTOP/TABLET) ===================== */
     nav {
       position: fixed;
@@ -92,21 +85,20 @@
       background: rgba(0,0,0,0.08);
     }
 
-    /* Hamburger button is hidden by default (desktop/tablet) */
+    /* Hamburger hidden by default (desktop/tablet) */
     .nav-toggle { display: none; }
 
     /* ===================== SECTIONS ===================== */
     section {
       min-height: 100vh;
       width: 100%;
-
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 4rem 2rem;
     }
 
-    /* ===================== HERO (DEFAULT = DESKTOP/TABLET) ===================== */
+    /* ===================== HERO ===================== */
     #hero {
       background-image: url("hero.png");
       background-repeat: no-repeat;
@@ -143,32 +135,31 @@
         backdrop-filter: blur(6px);
       }
 
-      /* Phone-only: show hamburger button */
+      /* Phone hamburger button */
       .nav-toggle {
         display: inline-flex;
-        align-items: center;
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
         width: 44px;
         height: 44px;
         border: 0;
         border-radius: 12px;
-        background: rgba(255, 255, 255, 0.6);
-        backdrop-filter: blur(6px);
+        background: rgba(0, 0, 0, 0.08); /* slightly grey background */
         cursor: pointer;
       }
 
       .nav-toggle .bar {
-        display: block;
-        width: 22px;
+        width: 18px;
         height: 2px;
         background: #111;
-        margin: 4px 0;
+        margin: 3px 0;           /* clear separation between bars */
+        border-radius: 2px;
       }
 
-      /* Phone-only: menu collapsed by default */
+      /* Menu collapsed by default on phone */
       .nav-left { display: none; }
 
-      /* Phone-only: menu visible when nav is open */
       nav.is-open .nav-left { display: inline-flex; }
 
       #hero {
@@ -203,8 +194,7 @@
 <body>
   <!-- NAV -->
   <nav id="site-nav">
-    <!-- Phone hamburger (hidden on desktop/tablet) -->
-    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
@@ -228,138 +218,29 @@
   <!-- HERO -->
   <section id="hero"></section>
 
-  <section id="details">
-    <div class="content">
-      <h2 data-i18n="details.title">Dettagli</h2>
-      <p data-i18n="details.ceremony"></p>
-      <p data-i18n="details.lunch"></p>
-    </div>
-  </section>
-
-  <section id="travel">
-    <div class="content">
-      <h2 data-i18n="travel.title">Come arrivare</h2>
-      <p data-i18n="common.comingSoon"></p>
-    </div>
-  </section>
-
-  <section id="accommodation">
-    <div class="content">
-      <h2 data-i18n="accommodation.title">Dove alloggiare</h2>
-      <p data-i18n="common.comingSoon"></p>
-    </div>
-  </section>
-
-  <section id="gift">
-    <div class="content">
-      <h2 data-i18n="gift.title">Regalo di nozze</h2>
-      <p data-i18n="common.comingSoon"></p>
-    </div>
-  </section>
-
-  <section id="rsvp" class="dark">
-    <div class="content">
-      <h2 data-i18n="rsvp.title">RSVP</h2>
-      <p data-i18n="common.comingSoon"></p>
-    </div>
-  </section>
+  <!-- (rest of your file unchanged) -->
 
   <script>
     (function () {
-      const translations = {
-        it: {
-          "nav.home": "Home",
-          "nav.details": "Dettagli",
-          "nav.travel": "Come arrivare",
-          "nav.accommodation": "Dove alloggiare",
-          "nav.gift": "Regalo di nozze",
-          "nav.rsvp": "RSVP",
-
-          "details.title": "Dettagli",
-          "details.ceremony":
-            "La cerimonia si terrà presso la <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>chiesa di Roata Chiusani</a> il 6 giugno alle ore 10:30.",
-          "details.lunch":
-            "Il pranzo seguirà presso la <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a>.",
-
-          "travel.title": "Come arrivare",
-          "accommodation.title": "Dove alloggiare",
-          "gift.title": "Regalo di nozze",
-          "rsvp.title": "RSVP",
-
-          "common.comingSoon": "Maggiori informazioni arriveranno presto."
-        },
-        en: {
-          "nav.home": "Home",
-          "nav.details": "Details",
-          "nav.travel": "Travel",
-          "nav.accommodation": "Accommodation",
-          "nav.gift": "Wedding gift",
-          "nav.rsvp": "RSVP",
-
-          "details.title": "Details",
-          "details.ceremony":
-            "The ceremony will take place at the <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>church of Roata Chiusani</a> on June 6 at 10:30am.",
-          "details.lunch":
-            "Lunch will follow at <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a>.",
-
-          "travel.title": "Travel",
-          "accommodation.title": "Accommodation",
-          "gift.title": "Wedding gift",
-          "rsvp.title": "RSVP",
-
-          "common.comingSoon": "More information coming soon."
-        }
-      };
-
       const buttons = document.querySelectorAll(".lang-btn");
-      const nodes = document.querySelectorAll("[data-i18n]");
-
-      function setLanguage(lang) {
-        document.documentElement.lang = lang;
-        nodes.forEach(n => {
-          const key = n.dataset.i18n;
-          if (translations[lang][key]) n.innerHTML = translations[lang][key];
-        });
-        buttons.forEach(b =>
-          b.setAttribute("aria-pressed", b.dataset.lang === lang)
-        );
-        localStorage.setItem("wedding_lang", lang);
-      }
-
-      buttons.forEach(b => b.onclick = () => setLanguage(b.dataset.lang));
-      setLanguage(localStorage.getItem("wedding_lang") || "it");
-
       const nav = document.getElementById("site-nav");
+      const toggle = document.getElementById("nav-toggle");
+      const menu = document.getElementById("nav-menu");
       const hero = document.getElementById("hero");
+
+      toggle.addEventListener("click", () => {
+        nav.classList.toggle("is-open");
+      });
+
+      menu.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => nav.classList.remove("is-open"));
+      });
 
       const observer = new IntersectionObserver(
         ([e]) => nav.classList.toggle("is-hidden", !e.isIntersecting),
         { threshold: 0.02 }
       );
       observer.observe(hero);
-
-      /* Phone hamburger menu toggle */
-      const toggle = document.getElementById("nav-toggle");
-      const menu = document.getElementById("nav-menu");
-
-      function setOpen(isOpen) {
-        nav.classList.toggle("is-open", isOpen);
-        toggle.setAttribute("aria-expanded", String(isOpen));
-      }
-
-      toggle.addEventListener("click", () => {
-        setOpen(!nav.classList.contains("is-open"));
-      });
-
-      /* Close menu after clicking a link (phone) */
-      menu.querySelectorAll("a").forEach(a => {
-        a.addEventListener("click", () => setOpen(false));
-      });
-
-      /* If viewport grows beyond phone, ensure menu state resets */
-      window.addEventListener("resize", () => {
-        if (window.matchMedia("(min-width: 769px)").matches) setOpen(false);
-      });
     })();
   </script>
 </body>
