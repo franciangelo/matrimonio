@@ -82,7 +82,6 @@
 
     /* ===================== PHONE ONLY ===================== */
     @media (max-width: 767px) {
-      /* remove full-width blur */
       nav {
         background: transparent;
         backdrop-filter: none;
@@ -90,7 +89,6 @@
         align-items: flex-start;
       }
 
-      /* tight blurred pill around menu text only */
       .nav-left {
         flex: 0 0 auto;
         width: fit-content;
@@ -108,10 +106,9 @@
         background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(6px);
 
-        margin: 0; /* top-left */
+        margin: 0;
       }
 
-      /* language switch stays outside blur */
       .lang-switch {
         min-width: auto;
         background: transparent;
@@ -124,9 +121,6 @@
     section {
       min-height: 100vh;
       width: 100%;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
 
       display: flex;
       align-items: center;
@@ -134,22 +128,30 @@
       padding: 4rem 2rem;
     }
 
-    /* HERO crop control */
-    :root {
-      --hero-focus-y-mobile: 50%;
-      --hero-focus-y-desktop: 80%;
-    }
-
+    /* ===================== HERO (UPDATED) ===================== */
     #hero {
       background-image: url("hero.jpeg");
-      background-position: 50% var(--hero-focus-y-mobile);
+      background-repeat: no-repeat;
+      background-color: #ffffff;
     }
 
+    /* Phone: full image visible, slightly shifted upward */
+    @media (max-width: 767px) {
+      #hero {
+        background-size: contain;
+        background-position: 50% 40%;
+      }
+    }
+
+    /* Desktop: less zoom, still bottom-biased */
     @media (min-width: 768px) {
-      #hero { background-position: 50% var(--hero-focus-y-desktop); }
+      #hero {
+        background-size: auto 110%;
+        background-position: 50% 85%;
+      }
     }
 
-    /* CONTENT blocks */
+    /* ===================== CONTENT ===================== */
     .content {
       max-width: 700px;
       padding: 2.5rem;
