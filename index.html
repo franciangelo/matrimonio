@@ -135,19 +135,18 @@
       background-color: #ffffff;
     }
 
-    /* Phone: full image visible, slightly shifted upward */
-    @media (max-width: 767px) {
-      #hero {
-        background-size: contain;
-        background-position: 50% 40%;
-      }
-    }
+    @media (min-width: 768px) {
+  #hero {
+    background-size: auto 110%;
+    background-position: 50% 50%;
+  }
+}
 
     /* Desktop: less zoom, still bottom-biased */
     @media (min-width: 768px) {
       #hero {
         background-size: auto 110%;
-        background-position: 50% 85%;
+        background-position: 50% 50%;
       }
     }
 
