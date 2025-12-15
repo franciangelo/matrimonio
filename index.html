@@ -1,184 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Angelo & Francesca</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Angelo & Francesca</title>
 
-  <style>
-    /* ---- Reset ---- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #000;
-      background: #fff;
-    }
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* ---- Fixed top nav ---- */
-    nav {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(6px);
-      z-index: 1000;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    nav a {
-      text-decoration: none;
-      color: #000;
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    nav a:hover { opacity: 0.65; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    /* ---- Sections ---- */
-    section {
-      min-height: 100vh;
-      padding: 64px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: #fff;
-    }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+            color: #111;
+        }
 
-    /* ---- Hero figure (Option A) ---- */
-    .hero-figure {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      margin-top: 64px; /* ensure content doesn't sit under the nav */
-    }
+        /* Top navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
 
-    .hero-image {
-      max-height: 78vh;
-      max-width: min(92vw, 900px);
-      object-fit: contain;
-      display: block;
-    }
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(6px);
+        }
 
-    /* ---- Simple content blocks ---- */
-    .content {
-      max-width: 720px;
-      padding: 28px 22px;
-    }
+        nav a {
+            text-decoration: none;
+            color: #111;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
 
-    h1 {
-      font-size: 2.6rem;
-      font-weight: 350;
-      line-height: 1.15;
-    }
-    h2 {
-      font-size: 2rem;
-      font-weight: 350;
-      margin-bottom: 12px;
-    }
-    p {
-      font-size: 1.05rem;
-      line-height: 1.65;
-    }
+        nav a:hover {
+            text-decoration: underline;
+        }
 
-    /* Optional: a subtle divider line between sections */
-    .divider {
-      width: min(720px, 92vw);
-      height: 1px;
-      background: rgba(0,0,0,0.08);
-      margin: 18px auto 0;
-    }
+        /* Generic full-screen section */
+        section {
+            min-height: 100vh;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
 
-    /* ---- Mobile ---- */
-    @media (max-width: 600px) {
-      nav { gap: 16px; }
-      h1 { font-size: 2.0rem; }
-      h2 { font-size: 1.5rem; }
-      p { font-size: 1.0rem; }
-      .hero-image { max-height: 72vh; }
-    }
-  </style>
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        /* Empty hero section */
+        #hero {
+            background-image: url("hero.jpeg");
+        }
+
+        /* Example content sections */
+        .content {
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .content h2 {
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .content p {
+            line-height: 1.6;
+        }
+
+        /* Optional darker overlay variant */
+        .dark .content {
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
-  <!-- Top menu -->
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#story">Our Story</a>
-    <a href="#details">Details</a>
-    <a href="#rsvp">RSVP</a>
-  </nav>
 
-  <!-- HERO (illustration as a centered figure, not a background) -->
-  <section id="home" aria-label="Home">
-    <div class="hero-figure">
-      <img src="hero.jpeg" alt="Wedding illustration" class="hero-image" />
+    <!-- Navigation -->
+    <nav>
+        <a href="#hero">Home</a>
+        <a href="#details">Details</a>
+        <a href="#travel">Travel</a>
+        <a href="#rsvp">RSVP</a>
+    </nav>
 
-      <!-- Optional text under the illustration -->
-      <div class="content">
-        <h1>Angelo &amp; Francesca</h1>
-        <p>6 giugno 2026</p>
-      </div>
-    </div>
-  </section>
+    <!-- Hero (empty, background only) -->
+    <section id="hero"></section>
 
-  <!-- SECTION: Our Story -->
-  <section id="story" aria-label="Our Story">
-    <div class="content">
-      <h2>Our Story</h2>
-      <p>
-        Write a short paragraph here: how you met, your favorite shared place,
-        or anything you’d like guests to know before the day.
-      </p>
-      <div class="divider"></div>
-      <p style="margin-top: 18px;">
-        If you later want another illustration in this section, the simplest approach is to add an
-        <code>&lt;img&gt;</code> (like the hero) and keep it centered.
-      </p>
-    </div>
-  </section>
+    <!-- Section with another background figure -->
+    <section id="details" style="background-image: url('details.jpeg');">
+        <div class="content">
+            <h2>Details</h2>
+            <p>
+                Ceremony and reception information can go here.
+            </p>
+        </div>
+    </section>
 
-  <!-- SECTION: Details -->
-  <section id="details" aria-label="Details">
-    <div class="content">
-      <h2>Details</h2>
-      <p>
-        Ceremony and reception information goes here. You can include address, schedule,
-        dress code, and any travel notes.
-      </p>
-      <div class="divider"></div>
-      <p style="margin-top: 18px;">
-        Example:
-        <br><br>
-        <strong>Ceremony:</strong> Location, time<br>
-        <strong>Reception:</strong> Location, time<br>
-        <strong>Dress code:</strong> ...
-      </p>
-    </div>
-  </section>
+    <!-- Section without background image -->
+    <section id="travel">
+        <div class="content">
+            <h2>Travel</h2>
+            <p>
+                Travel and accommodation details.
+            </p>
+        </div>
+    </section>
 
-  <!-- SECTION: RSVP -->
-  <section id="rsvp" aria-label="RSVP">
-    <div class="content">
-      <h2>RSVP</h2>
-      <p>
-        Add an email address, a phone number, or replace this section with a link to a form.
-      </p>
-      <div class="divider"></div>
-      <p style="margin-top: 18px;">
-        Example link:
-        <br>
-        <a href="https://example.com" style="color:#000; text-decoration: underline;">
-          RSVP form
-        </a>
-      </p>
-    </div>
-  </section>
+    <!-- Dark section with background -->
+    <section id="rsvp" class="dark" style="background-image: url('rsvp.jpeg');">
+        <div class="content">
+            <h2>RSVP</h2>
+            <p>
+                RSVP instructions or link.
+            </p>
+        </div>
+    </section>
+
 </body>
 </html>
