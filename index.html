@@ -107,36 +107,13 @@
     #hero {
       background-image: url("hero.png");
       background-repeat: no-repeat;
-
-      /*
-        KEY CHANGE TO REMOVE THE “BOX”:
-        - Do NOT paint a background color on the hero section.
-        - Leave it transparent so any unused space blends with the page background.
-        If you set background-color here (even white), it can still read as a “frame”/box on some screens.
-      */
       background-color: #fff;
-
-      /*
-        DESKTOP/TABLET:
-        - background-size controls the image size.
-          Examples:
-            background-size: contain;      (shows full image, may leave empty space)
-            background-size: cover;        (fills screen, crops)
-            background-size: auto 115%;    (fine control)
-        - background-position controls location.
-          Examples:
-            50% 50%  = center
-            50% 20%  = move image up
-            50% 80%  = move image down
-      */
       background-size: auto 95%;
       background-position: 50% 50%;
     }
 
-    /* ===================== PHONE (STANDARD: WIDTH BREAKPOINT) ===================== */
+    /* ===================== PHONE ===================== */
     @media (max-width: 768px) {
-
-      /* NAV on phone: stacked menu box on the left */
       nav {
         background: transparent;
         backdrop-filter: none;
@@ -145,7 +122,7 @@
       }
 
       nav a {
-        font-size: 0.9rem;       /* phone-only menu font size */
+        font-size: 0.9rem;
         letter-spacing: 0.06em;
       }
 
@@ -153,47 +130,17 @@
         flex: 0 0 auto;
         width: fit-content;
         max-width: calc(100vw - 2rem);
-
         display: inline-flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 0.75rem;
-        flex-wrap: nowrap;
-
         padding: 0.75rem 0.9rem;
         border-radius: 12px;
-
         background: rgba(255, 255, 255, 0.6);
         backdrop-filter: blur(6px);
-
-        margin: 0;
       }
 
-      .lang-switch {
-        min-width: auto;
-        background: transparent;
-        backdrop-filter: none;
-        padding: 0;
-      }
-
-      /* HERO on phone */
       #hero {
-        /*
-          PHONE:
-          Keep "contain" if you want the entire photo visible (no cropping).
-          Note: contain WILL leave empty space if the image ratio != screen ratio.
-          That empty space will blend with the page because #hero is transparent.
-
-          Change size on phone:
-            - contain            (whole image)
-            - 92% auto           (slightly smaller)
-            - 110% auto          (slightly larger)
-
-          Change position on phone:
-            - 50% 45%            (center-ish)
-            - 50% 20%            (move up)
-            - 50% 70%            (move down)
-        */
         background-size: 110% auto;
         background-position: 50% 45%;
       }
@@ -210,6 +157,11 @@
     .content h2 { font-weight: 400; margin-bottom: 1rem; }
     .content p { line-height: 1.6; font-size: 1.05rem; }
 
+    @media (min-width: 769px) {
+      .content h2 { font-size: 2rem; }
+      .content p { font-size: 1.35rem; line-height: 1.75; }
+    }
+
     .dark .content {
       background: rgba(0, 0, 0, 0.6);
       color: #fff;
@@ -221,12 +173,12 @@
   <!-- NAV -->
   <nav id="site-nav">
     <div class="nav-left">
-      <a href="#hero"          data-i18n="nav.home">Home</a>
-      <a href="#details"       data-i18n="nav.details">Dettagli</a>
-      <a href="#travel"        data-i18n="nav.travel">Come arrivare</a>
+      <a href="#hero" data-i18n="nav.home">Home</a>
+      <a href="#details" data-i18n="nav.details">Dettagli</a>
+      <a href="#travel" data-i18n="nav.travel">Come arrivare</a>
       <a href="#accommodation" data-i18n="nav.accommodation">Dove alloggiare</a>
-      <a href="#gift"          data-i18n="nav.gift">Regalo di nozze</a>
-      <a href="#rsvp"          data-i18n="nav.rsvp">RSVP</a>
+      <a href="#gift" data-i18n="nav.gift">Regalo di nozze</a>
+      <a href="#rsvp" data-i18n="nav.rsvp">RSVP</a>
     </div>
 
     <div class="lang-switch">
@@ -241,35 +193,36 @@
   <section id="details">
     <div class="content">
       <h2 data-i18n="details.title">Dettagli</h2>
-      <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
+      <p data-i18n="details.ceremony"></p>
+      <p data-i18n="details.lunch"></p>
     </div>
   </section>
 
   <section id="travel">
     <div class="content">
       <h2 data-i18n="travel.title">Come arrivare</h2>
-      <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
+      <p data-i18n="common.comingSoon"></p>
     </div>
   </section>
 
   <section id="accommodation">
     <div class="content">
       <h2 data-i18n="accommodation.title">Dove alloggiare</h2>
-      <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
+      <p data-i18n="common.comingSoon"></p>
     </div>
   </section>
 
   <section id="gift">
     <div class="content">
       <h2 data-i18n="gift.title">Regalo di nozze</h2>
-      <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
+      <p data-i18n="common.comingSoon"></p>
     </div>
   </section>
 
   <section id="rsvp" class="dark">
     <div class="content">
       <h2 data-i18n="rsvp.title">RSVP</h2>
-      <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
+      <p data-i18n="common.comingSoon"></p>
     </div>
   </section>
 
@@ -285,6 +238,11 @@
           "nav.rsvp": "RSVP",
 
           "details.title": "Dettagli",
+          "details.ceremony":
+            "La cerimonia si terrà presso la <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>chiesa di Roata Chiusani</a> il 6 giugno alle ore 10:30.",
+          "details.lunch":
+            "Il pranzo seguirà presso la <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a>.",
+
           "travel.title": "Come arrivare",
           "accommodation.title": "Dove alloggiare",
           "gift.title": "Regalo di nozze",
@@ -301,6 +259,11 @@
           "nav.rsvp": "RSVP",
 
           "details.title": "Details",
+          "details.ceremony":
+            "The ceremony will take place at the <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>church of Roata Chiusani</a> on June 6 at 10:30am.",
+          "details.lunch":
+            "Lunch will follow at <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a>.",
+
           "travel.title": "Travel",
           "accommodation.title": "Accommodation",
           "gift.title": "Wedding gift",
@@ -317,7 +280,7 @@
         document.documentElement.lang = lang;
         nodes.forEach(n => {
           const key = n.dataset.i18n;
-          if (translations[lang][key]) n.textContent = translations[lang][key];
+          if (translations[lang][key]) n.innerHTML = translations[lang][key];
         });
         buttons.forEach(b =>
           b.setAttribute("aria-pressed", b.dataset.lang === lang)
@@ -328,7 +291,6 @@
       buttons.forEach(b => b.onclick = () => setLanguage(b.dataset.lang));
       setLanguage(localStorage.getItem("wedding_lang") || "it");
 
-      /* nav visible only on hero */
       const nav = document.getElementById("site-nav");
       const hero = document.getElementById("hero");
 
