@@ -14,10 +14,11 @@
       color: #111;
     }
 
-    /* NAV */
+    /* ===================== NAV (DESKTOP DEFAULT) ===================== */
     nav {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
       z-index: 100;
 
@@ -48,7 +49,6 @@
 
     nav a:hover { text-decoration: underline; }
 
-    /* Language switch (extreme right) */
     .lang-switch {
       display: flex;
       gap: 0.5rem;
@@ -73,7 +73,44 @@
       background: rgba(0,0,0,0.08);
     }
 
-    /* SECTIONS */
+    /* ===================== MOBILE: LEFT SIDEBAR ===================== */
+    @media (max-width: 767px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        width: 72px;
+        height: 100vh;
+        padding: 1rem 0.5rem;
+      }
+
+      .nav-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+        width: 100%;
+      }
+
+      nav a {
+        font-size: 0.75rem;
+      }
+
+      .lang-switch {
+        flex-direction: column;
+        gap: 0.4rem;
+        min-width: auto;
+        width: 100%;
+        align-items: flex-start;
+      }
+
+      /* Push content to the right so it doesn't hide under the menu */
+      body {
+        padding-left: 72px;
+      }
+    }
+
+    /* ===================== SECTIONS ===================== */
     section {
       min-height: 100vh;
       width: 100%;
@@ -88,7 +125,7 @@
       padding: 4rem 2rem;
     }
 
-    /* HERO crop control */
+    /* ===================== HERO ===================== */
     :root {
       --hero-focus-y-mobile: 50%;
       --hero-focus-y-desktop: 80%;
@@ -100,10 +137,12 @@
     }
 
     @media (min-width: 768px) {
-      #hero { background-position: 50% var(--hero-focus-y-desktop); }
+      #hero {
+        background-position: 50% var(--hero-focus-y-desktop);
+      }
     }
 
-    /* CONTENT blocks */
+    /* ===================== CONTENT ===================== */
     .content {
       max-width: 700px;
       padding: 2.5rem;
@@ -133,17 +172,16 @@
       <a href="#rsvp"           data-i18n="nav.rsvp">RSVP</a>
     </div>
 
-    <div class="lang-switch" aria-label="Language switch">
+    <div class="lang-switch">
       <button class="lang-btn" type="button" data-lang="it" aria-pressed="true">IT</button>
       <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
   </nav>
 
-  <!-- HERO (image only) -->
+  <!-- HERO -->
   <section id="hero"></section>
 
-  <!-- Sections -->
-  <section id="details" style="background-image: url('details.jpeg');">
+  <section id="details">
     <div class="content">
       <h2 data-i18n="details.title">Dettagli</h2>
       <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
@@ -171,7 +209,7 @@
     </div>
   </section>
 
-  <section id="rsvp" class="dark" style="background-image: url('rsvp.jpeg');">
+  <section id="rsvp" class="dark">
     <div class="content">
       <h2 data-i18n="rsvp.title">RSVP</h2>
       <p data-i18n="common.comingSoon">Maggiori informazioni arriveranno presto.</p>
@@ -215,36 +253,21 @@
         }
       };
 
-      const langButtons = document.querySelectorAll(".lang-btn");
-      const i18nNodes = document.querySelectorAll("[data-i18n]");
+      const buttons = document.querySelectorAll(".lang-btn");
+      const nodes = document.querySelectorAll("[data-i18n]");
 
       function setLanguage(lang) {
         document.documentElement.lang = lang;
-
-        i18nNodes.forEach(node => {
-          const key = node.getAttribute("data-i18n");
-          const value = translations[lang] && translations[lang][key];
-          if (typeof value === "string") node.textContent = value;
+        nodes.forEach(n => {
+          const key = n.dataset.i18n;
+          if (translations[lang][key]) n.textContent = translations[lang][key];
         });
-
-        langButtons.forEach(btn => {
-          const isActive = btn.getAttribute("data-lang") === lang;
-          btn.setAttribute("aria-pressed", String(isActive));
-        });
-
-        try { localStorage.setItem("wedding_lang", lang); } catch (_) {}
+        buttons.forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+        localStorage.setItem("wedding_lang", lang);
       }
 
-      langButtons.forEach(btn => {
-        btn.addEventListener("click", () => setLanguage(btn.getAttribute("data-lang")));
-      });
-
-      let initial = "it";
-      try {
-        const saved = localStorage.getItem("wedding_lang");
-        if (saved === "it" || saved === "en") initial = saved;
-      } catch (_) {}
-      setLanguage(initial);
+      buttons.forEach(b => b.onclick = () => setLanguage(b.dataset.lang));
+      setLanguage(localStorage.getItem("wedding_lang") || "it");
     })();
   </script>
 </body>
