@@ -14,11 +14,10 @@
       color: #111;
     }
 
-    /* ===================== NAV (DESKTOP DEFAULT) ===================== */
+    /* NAV (desktop default: unchanged) */
     nav {
       position: fixed;
       top: 0;
-      left: 0;
       width: 100%;
       z-index: 100;
 
@@ -29,11 +28,21 @@
       padding: 1rem 2rem;
       background: rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(6px);
+
+      /* for hide/show */
+      transition: opacity 200ms ease, transform 200ms ease;
+    }
+
+    /* Hidden state (used via JS) */
+    nav.is-hidden {
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
     }
 
     .nav-left {
       display: flex;
-      justify-content: center;
+      justify-content: center; /* keep centered on desktop */
       gap: 2rem;
       flex: 1;
       flex-wrap: wrap;
@@ -73,44 +82,25 @@
       background: rgba(0,0,0,0.08);
     }
 
-    /* ===================== MOBILE: LEFT SIDEBAR ===================== */
+    /* PHONE ONLY: menu becomes vertical, top-left; same bar/background */
     @media (max-width: 767px) {
       nav {
-        flex-direction: column;
         align-items: flex-start;
-        justify-content: space-between;
-
-        width: 72px;
-        height: 100vh;
-        padding: 1rem 0.5rem;
+        padding: 0.75rem 1rem;
       }
 
       .nav-left {
+        justify-content: flex-start;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 1.2rem;
-        width: 100%;
+        gap: 0.75rem;
+        flex-wrap: nowrap;
       }
 
-      nav a {
-        font-size: 0.75rem;
-      }
-
-      .lang-switch {
-        flex-direction: column;
-        gap: 0.4rem;
-        min-width: auto;
-        width: 100%;
-        align-items: flex-start;
-      }
-
-      /* Push content to the right so it doesn't hide under the menu */
-      body {
-        padding-left: 72px;
-      }
+      nav a { font-size: 0.85rem; }
+      .lang-switch { min-width: auto; gap: 0.4rem; }
     }
 
-    /* ===================== SECTIONS ===================== */
+    /* SECTIONS */
     section {
       min-height: 100vh;
       width: 100%;
@@ -125,7 +115,7 @@
       padding: 4rem 2rem;
     }
 
-    /* ===================== HERO ===================== */
+    /* HERO crop control */
     :root {
       --hero-focus-y-mobile: 50%;
       --hero-focus-y-desktop: 80%;
@@ -137,12 +127,10 @@
     }
 
     @media (min-width: 768px) {
-      #hero {
-        background-position: 50% var(--hero-focus-y-desktop);
-      }
+      #hero { background-position: 50% var(--hero-focus-y-desktop); }
     }
 
-    /* ===================== CONTENT ===================== */
+    /* CONTENT blocks */
     .content {
       max-width: 700px;
       padding: 2.5rem;
@@ -162,7 +150,7 @@
 
 <body>
   <!-- NAV -->
-  <nav>
+  <nav id="site-nav">
     <div class="nav-left">
       <a href="#hero"           data-i18n="nav.home">Home</a>
       <a href="#details"        data-i18n="nav.details">Dettagli</a>
@@ -172,7 +160,7 @@
       <a href="#rsvp"           data-i18n="nav.rsvp">RSVP</a>
     </div>
 
-    <div class="lang-switch">
+    <div class="lang-switch" aria-label="Language switch">
       <button class="lang-btn" type="button" data-lang="it" aria-pressed="true">IT</button>
       <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
@@ -181,6 +169,7 @@
   <!-- HERO -->
   <section id="hero"></section>
 
+  <!-- Sections -->
   <section id="details">
     <div class="content">
       <h2 data-i18n="details.title">Dettagli</h2>
@@ -218,6 +207,7 @@
 
   <script>
     (function () {
+      /* ---------- i18n ---------- */
       const translations = {
         it: {
           "nav.home": "Home",
@@ -253,21 +243,55 @@
         }
       };
 
-      const buttons = document.querySelectorAll(".lang-btn");
-      const nodes = document.querySelectorAll("[data-i18n]");
+      const langButtons = document.querySelectorAll(".lang-btn");
+      const i18nNodes = document.querySelectorAll("[data-i18n]");
 
       function setLanguage(lang) {
         document.documentElement.lang = lang;
-        nodes.forEach(n => {
-          const key = n.dataset.i18n;
-          if (translations[lang][key]) n.textContent = translations[lang][key];
+
+        i18nNodes.forEach(node => {
+          const key = node.getAttribute("data-i18n");
+          const value = translations[lang] && translations[lang][key];
+          if (typeof value === "string") node.textContent = value;
         });
-        buttons.forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
-        localStorage.setItem("wedding_lang", lang);
+
+        langButtons.forEach(btn => {
+          btn.setAttribute("aria-pressed", String(btn.getAttribute("data-lang") === lang));
+        });
+
+        try { localStorage.setItem("wedding_lang", lang); } catch (_) {}
       }
 
-      buttons.forEach(b => b.onclick = () => setLanguage(b.dataset.lang));
-      setLanguage(localStorage.getItem("wedding_lang") || "it");
+      langButtons.forEach(btn => {
+        btn.addEventListener("click", () => setLanguage(btn.getAttribute("data-lang")));
+      });
+
+      let initial = "it";
+      try {
+        const saved = localStorage.getItem("wedding_lang");
+        if (saved === "it" || saved === "en") initial = saved;
+      } catch (_) {}
+      setLanguage(initial);
+
+      /* ---------- show nav only on hero ---------- */
+      const nav = document.getElementById("site-nav");
+      const hero = document.getElementById("hero");
+
+      // Start visible on load (we're at/near hero).
+      nav.classList.remove("is-hidden");
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          // If hero is visible -> show nav; otherwise hide.
+          nav.classList.toggle("is-hidden", !entry.isIntersecting);
+        },
+        {
+          // Consider hero "visible" as long as a small slice is on screen
+          threshold: 0.02
+        }
+      );
+
+      observer.observe(hero);
     })();
   </script>
 </body>
