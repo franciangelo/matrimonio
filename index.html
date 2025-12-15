@@ -6,7 +6,7 @@
     <title>Wedding</title>
 
     <style>
-        /* ---- Reset / base ---- */
+        /* ---- Reset ---- */
         * {
             margin: 0;
             padding: 0;
@@ -19,7 +19,7 @@
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            color: #000000;
+            color: #000;
         }
 
         /* ---- Navigation ---- */
@@ -33,14 +33,14 @@
             align-items: center;
             justify-content: center;
             gap: 32px;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(6px);
             z-index: 1000;
         }
 
         nav a {
             text-decoration: none;
-            color: #000000;
+            color: #000;
             font-size: 0.9rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
@@ -52,39 +52,32 @@
 
         /* ---- Sections ---- */
         section {
-            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 64px 24px;
             text-align: center;
-        }
 
-        section::before {
-            content: "";
-            position: absolute;
-            inset: 0;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            z-index: -1;
         }
 
         /* ---- Background images ---- */
-        #hero::before {
-            background-image: url("hero.jpeg");
+        #hero {
+            background-image: url("./hero.jpeg");
         }
 
-        #story::before {
-            background-image: url("story.jpeg"); /* optional */
+        #story {
+            background-image: url("./story.jpeg"); /* optional */
         }
 
-        #details::before {
-            background-image: url("details.jpeg"); /* optional */
+        #details {
+            background-image: url("./details.jpeg"); /* optional */
         }
 
-        /* ---- Light overlay for readability ---- */
+        /* ---- Content box ---- */
         .overlay {
             max-width: 720px;
             background: rgba(255, 255, 255, 0.75);
@@ -108,7 +101,7 @@
             line-height: 1.6;
         }
 
-        /* ---- Mobile adjustments ---- */
+        /* ---- Mobile ---- */
         @media (max-width: 600px) {
             nav {
                 gap: 16px;
@@ -127,12 +120,14 @@
 
 <body>
 
+    <!-- Navigation -->
     <nav>
         <a href="#hero">Home</a>
         <a href="#story">Our Story</a>
         <a href="#details">Details</a>
     </nav>
 
+    <!-- Hero -->
     <section id="hero">
         <div class="overlay">
             <h1>Alex & Jordan</h1>
@@ -140,6 +135,7 @@
         </div>
     </section>
 
+    <!-- Story -->
     <section id="story">
         <div class="overlay">
             <h2>Our Story</h2>
@@ -150,6 +146,7 @@
         </div>
     </section>
 
+    <!-- Details -->
     <section id="details">
         <div class="overlay">
             <h2>Details</h2>
