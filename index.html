@@ -29,7 +29,9 @@
       background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(6px);
       z-index: 1000;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+
+      /* REMOVED: border that caused the “black contour” */
+      border-bottom: none;
     }
 
     nav a {
@@ -45,7 +47,7 @@
     /* ---- Sections ---- */
     section {
       min-height: 100vh;
-      padding: 64px 24px; /* keep room under fixed nav */
+      padding: 64px 24px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -57,23 +59,28 @@
       background-color: #fff;
     }
 
-    /* ---- Background images ---- */
-    #home { background-image: url("./hero.jpeg"); }
-    #story { background-image: url("./story.jpeg"); }     /* optional */
+    /* HERO: remove padding so no edge shows */
+    #home {
+      padding: 0;
+      background-image: url("./hero.jpeg");
+    }
+
+    #story   { background-image: url("./story.jpeg"); }   /* optional */
     #details { background-image: url("./details.jpeg"); } /* optional */
-    #rsvp { background-image: url("./rsvp.jpeg"); }       /* optional */
+    #rsvp    { background-image: url("./rsvp.jpeg"); }    /* optional */
 
-@media (min-width: 900px) {
-  #home {
-    background-size: 94%;
-    background-position: center 80%;
-    background-repeat: no-repeat;
-    background-color: #ffffff;
-    overflow: hidden;
-  }
-}
+    /* ---- Desktop framing ---- */
+    @media (min-width: 900px) {
+      #home {
+        background-size: 90%;
+        background-position: center 80%;
+        background-repeat: no-repeat;
+        background-color: #ffffff;
+        overflow: hidden;
+      }
+    }
 
-    /* ---- Content blocks (light box so black text stays readable) ---- */
+    /* ---- Content blocks ---- */
     .content {
       max-width: 720px;
       padding: 28px 22px;
@@ -98,29 +105,18 @@
       margin: 18px auto 0;
     }
 
-    /* ---- IMPORTANT: for your white illustration, "cover" can look like plain white.
-       If you want the illustration to be fully visible as a background, switch to contain:
-       Uncomment the rule below. ---- */
-
-    /*
-    #home {
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-    */
-
     /* ---- Mobile ---- */
     @media (max-width: 600px) {
       nav { gap: 16px; }
       h2 { font-size: 1.5rem; }
-      p { font-size: 1.0rem; }
+      p  { font-size: 1.0rem; }
       .content { padding: 22px 18px; }
     }
   </style>
 </head>
 
 <body>
+
   <!-- Navigation -->
   <nav>
     <a href="#home">Home</a>
@@ -129,9 +125,9 @@
     <a href="#rsvp">RSVP</a>
   </nav>
 
-  <!-- HERO (background only; no duplicate name/date/tab) -->
+  <!-- HERO -->
   <section id="home" aria-label="Home">
-    <!-- Intentionally empty: the hero.jpeg already contains the title/date -->
+    <!-- Background image only -->
   </section>
 
   <!-- Our Story -->
@@ -156,8 +152,6 @@
       </p>
       <div class="divider"></div>
       <p style="margin-top: 18px;">
-        Example:
-        <br><br>
         <strong>Ceremony:</strong> Location, time<br>
         <strong>Reception:</strong> Location, time<br>
         <strong>Dress code:</strong> ...
@@ -174,8 +168,6 @@
       </p>
       <div class="divider"></div>
       <p style="margin-top: 18px;">
-        Example link:
-        <br>
         <a href="https://example.com" style="color:#000; text-decoration: underline;">
           RSVP form
         </a>
