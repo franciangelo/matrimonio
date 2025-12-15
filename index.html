@@ -9,6 +9,7 @@
     /* ---- Reset ---- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #000;
@@ -44,34 +45,29 @@
     /* ---- Sections ---- */
     section {
       min-height: 100vh;
-      padding: 64px 24px;
+      padding: 64px 24px; /* keep room under fixed nav */
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: #fff;
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #fff;
     }
 
-    /* ---- Hero figure (same placement as before) ---- */
-    .hero-figure {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      margin-top: 64px; /* ensure content doesn't sit under the nav */
-    }
+    /* ---- Background images ---- */
+    #home { background-image: url("./hero.jpeg"); }
+    #story { background-image: url("./story.jpeg"); }     /* optional */
+    #details { background-image: url("./details.jpeg"); } /* optional */
+    #rsvp { background-image: url("./rsvp.jpeg"); }       /* optional */
 
-    .hero-image {
-      max-height: 78vh;
-      max-width: min(92vw, 900px);
-      object-fit: contain;
-      display: block;
-    }
-
-    /* ---- Content blocks ---- */
+    /* ---- Content blocks (light box so black text stays readable) ---- */
     .content {
       max-width: 720px;
       padding: 28px 22px;
+      background: rgba(255, 255, 255, 0.78);
     }
 
     h2 {
@@ -92,18 +88,30 @@
       margin: 18px auto 0;
     }
 
+    /* ---- IMPORTANT: for your white illustration, "cover" can look like plain white.
+       If you want the illustration to be fully visible as a background, switch to contain:
+       Uncomment the rule below. ---- */
+
+    /*
+    #home {
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    */
+
     /* ---- Mobile ---- */
     @media (max-width: 600px) {
       nav { gap: 16px; }
       h2 { font-size: 1.5rem; }
       p { font-size: 1.0rem; }
-      .hero-image { max-height: 72vh; }
+      .content { padding: 22px 18px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Top menu -->
+  <!-- Navigation -->
   <nav>
     <a href="#home">Home</a>
     <a href="#story">Our Story</a>
@@ -111,15 +119,12 @@
     <a href="#rsvp">RSVP</a>
   </nav>
 
-  <!-- HERO (illustration only; removed name/date and the white tab) -->
+  <!-- HERO (background only; no duplicate name/date/tab) -->
   <section id="home" aria-label="Home">
-    <div class="hero-figure">
-      <img src="hero.jpeg" alt="Wedding illustration" class="hero-image" />
-      <!-- Removed the caption content block that duplicated what's in the illustration -->
-    </div>
+    <!-- Intentionally empty: the hero.jpeg already contains the title/date -->
   </section>
 
-  <!-- SECTION: Our Story -->
+  <!-- Our Story -->
   <section id="story" aria-label="Our Story">
     <div class="content">
       <h2>Our Story</h2>
@@ -131,7 +136,7 @@
     </div>
   </section>
 
-  <!-- SECTION: Details -->
+  <!-- Details -->
   <section id="details" aria-label="Details">
     <div class="content">
       <h2>Details</h2>
@@ -150,7 +155,7 @@
     </div>
   </section>
 
-  <!-- SECTION: RSVP -->
+  <!-- RSVP -->
   <section id="rsvp" aria-label="RSVP">
     <div class="content">
       <h2>RSVP</h2>
@@ -167,5 +172,6 @@
       </p>
     </div>
   </section>
+
 </body>
 </html>
