@@ -9,12 +9,10 @@
     /* ---- Reset ---- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #000;
       background: #fff;
-      overflow-x: hidden;
     }
 
     /* ---- Fixed top nav ---- */
@@ -27,10 +25,11 @@
       align-items: center;
       justify-content: center;
       gap: 28px;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
       z-index: 1000;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
     }
-
     nav a {
       text-decoration: none;
       color: #000;
@@ -38,7 +37,6 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
-
     nav a:hover { opacity: 0.65; }
 
     /* ---- Sections ---- */
@@ -49,58 +47,47 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background-color: #fff;
-    }
-
-    /* HERO */
-    #home {
-      padding: 0;
-      position: relative;
-      overflow: hidden;
-      height: 100vh; /* Ensure full height of the first section */
-    }
-
-    #home img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      object-position: center 80%;
       background: #fff;
+    }
+
+    /* ---- Hero figure (Option A) ---- */
+    .hero-figure {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      margin-top: 64px; /* ensure content doesn't sit under the nav */
+    }
+
+    .hero-image {
+      max-height: 78vh;
+      max-width: min(92vw, 900px);
+      object-fit: contain;
       display: block;
-      border: none; /* Remove any border */
     }
 
-    /* Desktop framing */
-    @media (min-width: 900px) {
-      #home img {
-        width: 90%;
-        height: auto;
-        margin: auto;
-      }
-    }
-
-    #story   { background: #fff url("./story.jpeg") center / cover no-repeat; }
-    #details { background: #fff url("./details.jpeg") center / cover no-repeat; }
-    #rsvp    { background: #fff url("./rsvp.jpeg") center / cover no-repeat; }
-
-    /* ---- Content blocks ---- */
+    /* ---- Simple content blocks ---- */
     .content {
       max-width: 720px;
       padding: 28px 22px;
-      background: rgba(255, 255, 255, 0.78);
     }
 
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 350;
+      line-height: 1.15;
+    }
     h2 {
       font-size: 2rem;
       font-weight: 350;
       margin-bottom: 12px;
     }
-
     p {
       font-size: 1.05rem;
       line-height: 1.65;
     }
 
+    /* Optional: a subtle divider line between sections */
     .divider {
       width: min(720px, 92vw);
       height: 1px;
@@ -111,15 +98,16 @@
     /* ---- Mobile ---- */
     @media (max-width: 600px) {
       nav { gap: 16px; }
+      h1 { font-size: 2.0rem; }
       h2 { font-size: 1.5rem; }
-      p  { font-size: 1.0rem; }
-      .content { padding: 22px 18px; }
+      p { font-size: 1.0rem; }
+      .hero-image { max-height: 72vh; }
     }
   </style>
 </head>
 
 <body>
-
+  <!-- Top menu -->
   <nav>
     <a href="#home">Home</a>
     <a href="#story">Our Story</a>
@@ -127,36 +115,70 @@
     <a href="#rsvp">RSVP</a>
   </nav>
 
-  <section id="home">
-    <img src="./hero.jpeg" alt="Wedding Image" />
+  <!-- HERO (illustration as a centered figure, not a background) -->
+  <section id="home" aria-label="Home">
+    <div class="hero-figure">
+      <img src="hero.jpeg" alt="Wedding illustration" class="hero-image" />
+
+      <!-- Optional text under the illustration -->
+      <div class="content">
+        <h1>Angelo &amp; Francesca</h1>
+        <p>6 giugno 2026</p>
+      </div>
+    </div>
   </section>
 
-  <section id="story">
+  <!-- SECTION: Our Story -->
+  <section id="story" aria-label="Our Story">
     <div class="content">
       <h2>Our Story</h2>
-      <p>A short paragraph about how you met.</p>
+      <p>
+        Write a short paragraph here: how you met, your favorite shared place,
+        or anything you’d like guests to know before the day.
+      </p>
       <div class="divider"></div>
+      <p style="margin-top: 18px;">
+        If you later want another illustration in this section, the simplest approach is to add an
+        <code>&lt;img&gt;</code> (like the hero) and keep it centered.
+      </p>
     </div>
   </section>
 
-  <section id="details">
+  <!-- SECTION: Details -->
+  <section id="details" aria-label="Details">
     <div class="content">
       <h2>Details</h2>
-      <p>Ceremony and reception information.</p>
+      <p>
+        Ceremony and reception information goes here. You can include address, schedule,
+        dress code, and any travel notes.
+      </p>
       <div class="divider"></div>
+      <p style="margin-top: 18px;">
+        Example:
+        <br><br>
+        <strong>Ceremony:</strong> Location, time<br>
+        <strong>Reception:</strong> Location, time<br>
+        <strong>Dress code:</strong> ...
+      </p>
     </div>
   </section>
 
-  <section id="rsvp">
+  <!-- SECTION: RSVP -->
+  <section id="rsvp" aria-label="RSVP">
     <div class="content">
       <h2>RSVP</h2>
       <p>
+        Add an email address, a phone number, or replace this section with a link to a form.
+      </p>
+      <div class="divider"></div>
+      <p style="margin-top: 18px;">
+        Example link:
+        <br>
         <a href="https://example.com" style="color:#000; text-decoration: underline;">
           RSVP form
         </a>
       </p>
     </div>
   </section>
-
 </body>
 </html>
