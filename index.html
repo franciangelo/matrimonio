@@ -8,15 +8,23 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
+
+    body{
       font-family: system-ui, -apple-system, BlinkMacSystemFont,
                    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #111;
     }
-    body::before { content:""; position:fixed; inset:0; background:#fff !important; z-index:-1; }
 
+    /* Page background. This is what you will see "around" a contain-sized hero image. */
     html, body { background: #fff; }
     html { color-scheme: light; }
+
+    /*
+      IMPORTANT:
+      If you use background-size: contain, the image will NOT fill the whole section.
+      The remaining area will show the SECTION's background (or the page background if the section is transparent).
+      To avoid a visible “boxed” look, we make #hero background transparent so it blends with the page.
+    */
 
     /* ===================== NAV (DEFAULT = DESKTOP/TABLET) ===================== */
     nav {
@@ -97,26 +105,32 @@
 
     /* ===================== HERO (DEFAULT = DESKTOP/TABLET) ===================== */
     #hero {
-      background-image: url("hero.jpeg");
+      background-image: url("hero.png");
       background-repeat: no-repeat;
+
+      /*
+        KEY CHANGE TO REMOVE THE “BOX”:
+        - Do NOT paint a background color on the hero section.
+        - Leave it transparent so any unused space blends with the page background.
+        If you set background-color here (even white), it can still read as a “frame”/box on some screens.
+      */
       background-color: #fff;
 
       /*
-        DESKTOP/TABLET DEFAULTS:
-
-        To change IMAGE SIZE on desktop:
-          - Use "cover" to fill the whole screen (cropping will happen)
-          - Use "contain" to show the whole image (may leave empty margins)
-          - Use percentages for fine control (e.g. "110% auto" or "auto 120%")
-
-        To change IMAGE POSITION on desktop:
-          - "50% 50%" is centered
-          - "50% 20%" moves image UP (shows more bottom)
-          - "50% 80%" moves image DOWN (shows more top)
-          - "center top", "center bottom" are also valid
+        DESKTOP/TABLET:
+        - background-size controls the image size.
+          Examples:
+            background-size: contain;      (shows full image, may leave empty space)
+            background-size: cover;        (fills screen, crops)
+            background-size: auto 115%;    (fine control)
+        - background-position controls location.
+          Examples:
+            50% 50%  = center
+            50% 20%  = move image up
+            50% 80%  = move image down
       */
-      background-size: auto 115%;   /* desktop size: make the image a bit bigger */
-      background-position: 50% 50%; /* desktop position: centered */
+      background-size: auto 118%;
+      background-position: 50% 50%;
     }
 
     /* ===================== PHONE (STANDARD: WIDTH BREAKPOINT) ===================== */
@@ -132,7 +146,7 @@
 
       nav a {
         font-size: 0.9rem;       /* phone-only menu font size */
-        letter-spacing: 0.06em;  /* optional: tighter spacing on small screens */
+        letter-spacing: 0.06em;
       }
 
       .nav-left {
@@ -165,25 +179,23 @@
       /* HERO on phone */
       #hero {
         /*
-          PHONE OVERRIDES:
+          PHONE:
+          Keep "contain" if you want the entire photo visible (no cropping).
+          Note: contain WILL leave empty space if the image ratio != screen ratio.
+          That empty space will blend with the page because #hero is transparent.
 
-          Change IMAGE SIZE on phone:
-            - "contain" shows the whole photo (no cropping), often best on phones
-            - "cover" fills screen but crops, sometimes faces get cut off
-            - Percentages give fine control:
-                background-size: 92% auto;  (slightly smaller)
-                background-size: 110% auto; (slightly larger)
+          Change size on phone:
+            - contain            (whole image)
+            - 92% auto           (slightly smaller)
+            - 110% auto          (slightly larger)
 
-          Change IMAGE POSITION on phone:
-            - first value is horizontal (0% left, 50% center, 100% right)
-            - second value is vertical   (0% top,  50% center, 100% bottom)
-            Examples:
-              background-position: 50% 15%;  (move image UP)
-              background-position: 50% 70%;  (move image DOWN)
+          Change position on phone:
+            - 50% 45%            (center-ish)
+            - 50% 20%            (move up)
+            - 50% 70%            (move down)
         */
-
-        background-size: contain;     /* phone size: show whole image */
-        background-position: 50% 45%; /* phone position: slightly higher than center */
+        background-size: calc(100% + 10px) auto;
+        background-position: 50% 45%;
       }
     }
 
@@ -206,7 +218,6 @@
 </head>
 
 <body>
-
   <!-- NAV -->
   <nav id="site-nav">
     <div class="nav-left">
