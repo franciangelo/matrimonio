@@ -6,7 +6,9 @@
     <title>Angelo & Francesca</title>
 
     <style>
-        /* Reset */
+        /* =====================================================
+           GLOBAL RESET
+        ===================================================== */
         * {
             margin: 0;
             padding: 0;
@@ -18,22 +20,25 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                         Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                         "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: #111;
         }
 
-        /* Top navigation */
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 100;
-            padding: 1rem 2rem;
+
             display: flex;
             justify-content: center;
             gap: 2rem;
 
+            padding: 1rem 2rem;
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(6px);
         }
@@ -41,21 +46,24 @@
         nav a {
             text-decoration: none;
             color: #111;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
         }
 
         nav a:hover {
             text-decoration: underline;
         }
 
-        /* Generic full-screen section */
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
         section {
             min-height: 100vh;
             width: 100%;
+
             background-size: cover;
-            background-position: center;
             background-repeat: no-repeat;
+            background-position: center;
 
             display: flex;
             align-items: center;
@@ -63,16 +71,36 @@
             padding: 4rem 2rem;
         }
 
-        /* Empty hero section */
-        #hero {
-            background-image: url("hero.jpeg");
+        /* =====================================================
+           HERO SECTION
+           Control vertical crop here
+           0%   = top
+           50%  = center
+           100% = bottom
+        ===================================================== */
+        :root {
+            --hero-focus-y-mobile: 50%;
+            --hero-focus-y-desktop: 80%;
         }
 
-        /* Example content sections */
+        #hero {
+            background-image: url("hero.jpeg");
+            background-position: 50% var(--hero-focus-y-mobile);
+        }
+
+        @media (min-width: 768px) {
+            #hero {
+                background-position: 50% var(--hero-focus-y-desktop);
+            }
+        }
+
+        /* =====================================================
+           CONTENT BLOCKS (OPTIONAL)
+        ===================================================== */
         .content {
             max-width: 700px;
-            background: rgba(255, 255, 255, 0.85);
             padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.85);
             text-align: center;
         }
 
@@ -85,7 +113,6 @@
             line-height: 1.6;
         }
 
-        /* Optional darker overlay variant */
         .dark .content {
             background: rgba(0, 0, 0, 0.6);
             color: #fff;
@@ -95,7 +122,7 @@
 
 <body>
 
-    <!-- Navigation -->
+    <!-- ================= NAV ================= -->
     <nav>
         <a href="#hero">Home</a>
         <a href="#details">Details</a>
@@ -103,36 +130,28 @@
         <a href="#rsvp">RSVP</a>
     </nav>
 
-    <!-- Hero (empty, background only) -->
+    <!-- ================= HERO (IMAGE ONLY) ================= -->
     <section id="hero"></section>
 
-    <!-- Section with another background figure -->
+    <!-- ================= SECTIONS ================= -->
     <section id="details" style="background-image: url('details.jpeg');">
         <div class="content">
             <h2>Details</h2>
-            <p>
-                Ceremony and reception information can go here.
-            </p>
+            <p>Event information can go here.</p>
         </div>
     </section>
 
-    <!-- Section without background image -->
     <section id="travel">
         <div class="content">
             <h2>Travel</h2>
-            <p>
-                Travel and accommodation details.
-            </p>
+            <p>Travel and accommodation information.</p>
         </div>
     </section>
 
-    <!-- Dark section with background -->
     <section id="rsvp" class="dark" style="background-image: url('rsvp.jpeg');">
         <div class="content">
             <h2>RSVP</h2>
-            <p>
-                RSVP instructions or link.
-            </p>
+            <p>RSVP instructions or link.</p>
         </div>
     </section>
 
