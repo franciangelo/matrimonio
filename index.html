@@ -1,159 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Angelo & Francesca</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angelo & Francesca</title>
 
-    <style>
-        /* =====================================================
-           GLOBAL RESET
-        ===================================================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+      color: #111;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
 
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont,
-                         "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #111;
-        }
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-        /* =====================================================
-           NAVIGATION
-        ===================================================== */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+    }
 
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
+    .nav-left {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex: 1;
+    }
 
-            padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(6px);
-        }
+    nav a {
+      text-decoration: none;
+      color: #111;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
 
-        nav a {
-            text-decoration: none;
-            color: #111;
-            font-size: 0.85rem;
-            letter-spacing: 0.08em;
-        }
+    nav a:hover { text-decoration: underline; }
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+    /* Language switch on extreme right */
+    .lang-switch {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: flex-end;
+      min-width: 120px; /* keeps right edge stable */
+    }
 
-        /* =====================================================
-           SECTIONS
-        ===================================================== */
-        section {
-            min-height: 100vh;
-            width: 100%;
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font: inherit;
+      color: #111;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.4rem;
+      border-radius: 6px;
+    }
 
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
+    .lang-btn[aria-pressed="true"] {
+      background: rgba(0,0,0,0.08);
+    }
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem 2rem;
-        }
+    /* SECTIONS */
+    section {
+      min-height: 100vh;
+      width: 100%;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
 
-        /* =====================================================
-           HERO SECTION
-           Control vertical crop here
-           0%   = top
-           50%  = center
-           100% = bottom
-        ===================================================== */
-        :root {
-            --hero-focus-y-mobile: 50%;
-            --hero-focus-y-desktop: 80%;
-        }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+    }
 
-        #hero {
-            background-image: url("hero.jpeg");
-            background-position: 50% var(--hero-focus-y-mobile);
-        }
+    /* HERO crop control */
+    :root {
+      --hero-focus-y-mobile: 50%;
+      --hero-focus-y-desktop: 80%;
+    }
 
-        @media (min-width: 768px) {
-            #hero {
-                background-position: 50% var(--hero-focus-y-desktop);
-            }
-        }
+    #hero {
+      background-image: url("hero.jpeg");
+      background-position: 50% var(--hero-focus-y-mobile);
+    }
 
-        /* =====================================================
-           CONTENT BLOCKS (OPTIONAL)
-        ===================================================== */
-        .content {
-            max-width: 700px;
-            padding: 2.5rem;
-            background: rgba(255, 255, 255, 0.85);
-            text-align: center;
-        }
+    @media (min-width: 768px) {
+      #hero { background-position: 50% var(--hero-focus-y-desktop); }
+    }
 
-        .content h2 {
-            font-weight: 400;
-            margin-bottom: 1rem;
-        }
+    /* CONTENT blocks */
+    .content {
+      max-width: 700px;
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.85);
+      text-align: center;
+    }
 
-        .content p {
-            line-height: 1.6;
-        }
+    .content h2 { font-weight: 400; margin-bottom: 1rem; }
+    .content p { line-height: 1.6; }
 
-        .dark .content {
-            background: rgba(0, 0, 0, 0.6);
-            color: #fff;
-        }
-    </style>
+    .dark .content {
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+    }
+  </style>
 </head>
 
 <body>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-left">
+      <a href="#hero"   data-i18n="nav.home">Home</a>
+      <a href="#details" data-i18n="nav.details">Dettagli</a>
+      <a href="#travel"  data-i18n="nav.travel">Viaggio</a>
+      <a href="#rsvp"    data-i18n="nav.rsvp">RSVP</a>
+    </div>
 
-    <!-- ================= NAV ================= -->
-    <nav>
-        <a href="#hero">Home</a>
-        <a href="#details">Details</a>
-        <a href="#travel">Travel</a>
-        <a href="#rsvp">RSVP</a>
-    </nav>
+    <div class="lang-switch" aria-label="Language switch">
+      <button class="lang-btn" type="button" data-lang="it" aria-pressed="true">IT</button>
+      <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </nav>
 
-    <!-- ================= HERO (IMAGE ONLY) ================= -->
-    <section id="hero"></section>
+  <!-- HERO (image only) -->
+  <section id="hero"></section>
 
-    <!-- ================= SECTIONS ================= -->
-    <section id="details" style="background-image: url('details.jpeg');">
-        <div class="content">
-            <h2>Details</h2>
-            <p>Event information can go here.</p>
-        </div>
-    </section>
+  <!-- Sections (examples; adjust text as you like) -->
+  <section id="details" style="background-image: url('details.jpeg');">
+    <div class="content">
+      <h2 data-i18n="details.title">Dettagli</h2>
+      <p data-i18n="details.body">Qui potete inserire informazioni su cerimonia e ricevimento.</p>
+    </div>
+  </section>
 
-    <section id="travel">
-        <div class="content">
-            <h2>Travel</h2>
-            <p>Travel and accommodation information.</p>
-        </div>
-    </section>
+  <section id="travel">
+    <div class="content">
+      <h2 data-i18n="travel.title">Come arrivare</h2>
+      <p data-i18n="travel.body">Qui potete inserire indicazioni su viaggio e alloggio.</p>
+    </div>
+  </section>
 
-    <section id="rsvp" class="dark" style="background-image: url('rsvp.jpeg');">
-        <div class="content">
-            <h2>RSVP</h2>
-            <p>RSVP instructions or link.</p>
-        </div>
-    </section>
+  <section id="rsvp" class="dark" style="background-image: url('rsvp.jpeg');">
+    <div class="content">
+      <h2 data-i18n="rsvp.title">RSVP</h2>
+      <p data-i18n="rsvp.body">Qui potete inserire istruzioni RSVP o un link.</p>
+    </div>
+  </section>
 
+  <script>
+    (function () {
+      const translations = {
+        it: {
+          "nav.home": "Home",
+          "nav.details": "Dettagli",
+          "nav.travel": "Come arrivare",
+          "nav.rsvp": "RSVP",
+
+          "details.title": "Dettagli",
+          "details.body": "Qui potete inserire informazioni su cerimonia e ricevimento.",
+
+          "travel.title": "Come arrivare",
+          "travel.body": "Qui potete inserire indicazioni su viaggio e alloggio.",
+
+          "rsvp.title": "RSVP",
+          "rsvp.body": "Qui potete inserire istruzioni RSVP o un link."
+        },
+        en: {
+          "nav.home": "Home",
+          "nav.details": "Details",
+          "nav.travel": "Travel",
+          "nav.rsvp": "RSVP",
+
+          "details.title": "Details",
+          "details.body": "Ceremony and reception information can go here.",
+
+          "travel.title": "Travel",
+          "travel.body": "Travel and accommodation details can go here.",
+
+          "rsvp.title": "RSVP",
+          "rsvp.body": "RSVP instructions or a link can go here."
+        }
+      };
+
+      const langButtons = document.querySelectorAll(".lang-btn");
+      const i18nNodes = document.querySelectorAll("[data-i18n]");
+
+      function setLanguage(lang) {
+        // Update document language (helps accessibility and hyphenation)
+        document.documentElement.lang = lang;
+
+        // Swap text content
+        i18nNodes.forEach(node => {
+          const key = node.getAttribute("data-i18n");
+          const value = translations[lang] && translations[lang][key];
+          if (typeof value === "string") node.textContent = value;
+        });
+
+        // Toggle pressed state
+        langButtons.forEach(btn => {
+          const isActive = btn.getAttribute("data-lang") === lang;
+          btn.setAttribute("aria-pressed", String(isActive));
+        });
+
+        // Persist choice
+        try { localStorage.setItem("wedding_lang", lang); } catch (_) {}
+      }
+
+      // Click handlers
+      langButtons.forEach(btn => {
+        btn.addEventListener("click", () => setLanguage(btn.getAttribute("data-lang")));
+      });
+
+      // Default IT; restore saved preference if present
+      let initial = "it";
+      try {
+        const saved = localStorage.getItem("wedding_lang");
+        if (saved === "it" || saved === "en") initial = saved;
+      } catch (_) {}
+      setLanguage(initial);
+    })();
+  </script>
 </body>
 </html>
