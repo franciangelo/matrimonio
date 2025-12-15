@@ -14,7 +14,7 @@
       color: #111;
     }
 
-    /* NAV (desktop default: unchanged) */
+    /* NAV */
     nav {
       position: fixed;
       top: 0;
@@ -22,30 +22,39 @@
       z-index: 100;
 
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
 
       padding: 1rem 2rem;
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(6px);
 
-      /* for hide/show */
+      /* No full-width background/blur */
+      background: transparent;
+
       transition: opacity 200ms ease, transform 200ms ease;
     }
 
-    /* Hidden state (used via JS) */
     nav.is-hidden {
       opacity: 0;
       transform: translateY(-8px);
       pointer-events: none;
     }
 
+    /* ONLY the menu options are blurred */
     .nav-left {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+
       display: flex;
-      justify-content: center; /* keep centered on desktop */
+      justify-content: center; /* desktop unchanged */
       gap: 2rem;
       flex: 1;
       flex-wrap: wrap;
+
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto; /* keep centered on desktop */
     }
 
     nav a {
@@ -58,12 +67,19 @@
 
     nav a:hover { text-decoration: underline; }
 
+    /* Language switch: explicitly NOT blurred and NOT boxed */
     .lang-switch {
       display: flex;
       gap: 0.5rem;
       align-items: center;
       justify-content: flex-end;
-      min-width: 120px;
+
+      /* ensure it remains "out" of any pill styling */
+      background: transparent;
+      backdrop-filter: none;
+      padding: 0;
+      border-radius: 0;
+      width: fit-content;
     }
 
     .lang-btn {
@@ -82,11 +98,11 @@
       background: rgba(0,0,0,0.08);
     }
 
-    /* PHONE ONLY: menu becomes vertical, top-left; same bar/background */
+    /* PHONE ONLY: menu becomes vertical, top-left; language stays top-right */
     @media (max-width: 767px) {
       nav {
-        align-items: flex-start;
         padding: 0.75rem 1rem;
+        align-items: flex-start;
       }
 
       .nav-left {
@@ -94,10 +110,11 @@
         flex-direction: column;
         gap: 0.75rem;
         flex-wrap: nowrap;
+        margin: 0; /* top-left on phone */
       }
 
       nav a { font-size: 0.85rem; }
-      .lang-switch { min-width: auto; gap: 0.4rem; }
+      .lang-switch { gap: 0.4rem; }
     }
 
     /* SECTIONS */
@@ -277,18 +294,13 @@
       const nav = document.getElementById("site-nav");
       const hero = document.getElementById("hero");
 
-      // Start visible on load (we're at/near hero).
       nav.classList.remove("is-hidden");
 
       const observer = new IntersectionObserver(
         ([entry]) => {
-          // If hero is visible -> show nav; otherwise hide.
           nav.classList.toggle("is-hidden", !entry.isIntersecting);
         },
-        {
-          // Consider hero "visible" as long as a small slice is on screen
-          threshold: 0.02
-        }
+        { threshold: 0.02 }
       );
 
       observer.observe(hero);
