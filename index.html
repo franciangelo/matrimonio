@@ -19,6 +19,13 @@
     html, body { background: #fff; }
     html { color-scheme: light; }
 
+    /*
+      IMPORTANT:
+      If you use background-size: contain, the image will NOT fill the whole section.
+      The remaining area will show the SECTION's background (or the page background if the section is transparent).
+      To avoid a visible “boxed” look, we make #hero background transparent so it blends with the page.
+    */
+
     /* ===================== NAV (DEFAULT = DESKTOP/TABLET) ===================== */
     nav {
       position: fixed;
@@ -85,20 +92,21 @@
       background: rgba(0,0,0,0.08);
     }
 
-    /* Hamburger hidden by default (desktop/tablet) */
+    /* NEW: hamburger hidden by default (desktop/tablet) */
     .nav-toggle { display: none; }
 
     /* ===================== SECTIONS ===================== */
     section {
       min-height: 100vh;
       width: 100%;
+
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 4rem 2rem;
     }
 
-    /* ===================== HERO ===================== */
+    /* ===================== HERO (DEFAULT = DESKTOP/TABLET) ===================== */
     #hero {
       background-image: url("hero.png");
       background-repeat: no-repeat;
@@ -135,31 +143,33 @@
         backdrop-filter: blur(6px);
       }
 
-      /* Phone hamburger button */
+      /* NEW: phone-only hamburger button styling */
       .nav-toggle {
         display: inline-flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         width: 44px;
         height: 44px;
         border: 0;
         border-radius: 12px;
         background: rgba(0, 0, 0, 0.08); /* slightly grey background */
         cursor: pointer;
+        gap: 6px; /* clear separation between the three lines */
       }
 
       .nav-toggle .bar {
-    width: 18px;
-    height: 2px;
-    margin: 3px 0;     /* MORE vertical separation */
-    border-radius: 2px;
-    background: #111;
-    }
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: #111;
+        border-radius: 2px;
+      }
 
-      /* Menu collapsed by default on phone */
+      /* NEW: collapse menu on phone by default */
       .nav-left { display: none; }
 
+      /* NEW: show menu only when nav is open */
       nav.is-open .nav-left { display: inline-flex; }
 
       #hero {
@@ -177,7 +187,16 @@
     }
 
     .content h2 { font-weight: 400; margin-bottom: 1rem; }
-    .content p { line-height: 1.6; font-size: 1.05rem; }
+
+.content p {
+  line-height: 1.6;
+  font-size: 1.05rem;
+  margin-bottom: 0.8rem;
+}
+
+.content p:last-child {
+  margin-bottom: 0;
+}
 
     @media (min-width: 769px) {
       .content h2 { font-size: 2rem; }
@@ -194,7 +213,8 @@
 <body>
   <!-- NAV -->
   <nav id="site-nav">
-    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+    <!-- NEW: hamburger button (only visible on phone) -->
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
@@ -218,29 +238,132 @@
   <!-- HERO -->
   <section id="hero"></section>
 
-  <!-- (rest of your file unchanged) -->
+  <section id="details">
+    <div class="content">
+      <h2 data-i18n="details.title">Dettagli</h2>
+      <p data-i18n="details.ceremony"></p>
+      <p data-i18n="details.lunch"></p>
+    </div>
+  </section>
+
+  <section id="travel">
+    <div class="content">
+      <h2 data-i18n="travel.title">Come arrivare</h2>
+      <p data-i18n="common.comingSoon"></p>
+    </div>
+  </section>
+
+  <section id="accommodation">
+    <div class="content">
+      <h2 data-i18n="accommodation.title">Dove alloggiare</h2>
+      <p data-i18n="common.comingSoon"></p>
+    </div>
+  </section>
+
+  <section id="gift">
+    <div class="content">
+      <h2 data-i18n="gift.title">Regalo di nozze</h2>
+      <p data-i18n="common.comingSoon"></p>
+    </div>
+  </section>
+
+  <section id="rsvp" class="dark">
+    <div class="content">
+      <h2 data-i18n="rsvp.title">RSVP</h2>
+      <p data-i18n="common.comingSoon"></p>
+    </div>
+  </section>
 
   <script>
     (function () {
+      const translations = {
+        it: {
+          "nav.home": "Home",
+          "nav.details": "Dettagli",
+          "nav.travel": "Come arrivare",
+          "nav.accommodation": "Dove alloggiare",
+          "nav.gift": "Regalo di nozze",
+          "nav.rsvp": "RSVP",
+
+          "details.title": "Dettagli",
+          "details.ceremony":
+            "La cerimonia si terrà presso la <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>chiesa di Roata Chiusani</a> il 6 giugno alle ore 10:30.",
+          "details.lunch":
+            "Il pranzo seguirà presso la <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a>.",
+
+          "travel.title": "Come arrivare",
+          "accommodation.title": "Dove alloggiare",
+          "gift.title": "Regalo di nozze",
+          "rsvp.title": "RSVP",
+
+          "common.comingSoon": "Maggiori informazioni arriveranno presto."
+        },
+        en: {
+          "nav.home": "Home",
+          "nav.details": "Details",
+          "nav.travel": "Travel",
+          "nav.accommodation": "Accommodation",
+          "nav.gift": "Wedding gift",
+          "nav.rsvp": "RSVP",
+
+          "details.title": "Details",
+          "details.ceremony":
+            "The ceremony will take place at the <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>church of Roata Chiusani</a> on June 6 at 10:30am.",
+          "details.lunch":
+            "Lunch will follow at <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a>.",
+
+          "travel.title": "Travel",
+          "accommodation.title": "Accommodation",
+          "gift.title": "Wedding gift",
+          "rsvp.title": "RSVP",
+
+          "common.comingSoon": "More information coming soon."
+        }
+      };
+
       const buttons = document.querySelectorAll(".lang-btn");
+      const nodes = document.querySelectorAll("[data-i18n]");
+
+      function setLanguage(lang) {
+        document.documentElement.lang = lang;
+        nodes.forEach(n => {
+          const key = n.dataset.i18n;
+          if (translations[lang][key]) n.innerHTML = translations[lang][key];
+        });
+        buttons.forEach(b =>
+          b.setAttribute("aria-pressed", b.dataset.lang === lang)
+        );
+        localStorage.setItem("wedding_lang", lang);
+      }
+
+      buttons.forEach(b => b.onclick = () => setLanguage(b.dataset.lang));
+      setLanguage(localStorage.getItem("wedding_lang") || "it");
+
       const nav = document.getElementById("site-nav");
-      const toggle = document.getElementById("nav-toggle");
-      const menu = document.getElementById("nav-menu");
       const hero = document.getElementById("hero");
-
-      toggle.addEventListener("click", () => {
-        nav.classList.toggle("is-open");
-      });
-
-      menu.querySelectorAll("a").forEach(a => {
-        a.addEventListener("click", () => nav.classList.remove("is-open"));
-      });
 
       const observer = new IntersectionObserver(
         ([e]) => nav.classList.toggle("is-hidden", !e.isIntersecting),
         { threshold: 0.02 }
       );
       observer.observe(hero);
+
+      /* NEW: Phone hamburger menu toggle (no effect on desktop because button is hidden) */
+      const toggle = document.getElementById("nav-toggle");
+      const menu = document.getElementById("nav-menu");
+
+      toggle.addEventListener("click", () => {
+        const isOpen = nav.classList.toggle("is-open");
+        toggle.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      /* Close menu after clicking a link (phone) */
+      menu.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", () => {
+          nav.classList.remove("is-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
     })();
   </script>
 </body>
