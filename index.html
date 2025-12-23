@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Angelo & Francesca</title>
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Source+Sans+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
     body{
-      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+      font-family: "Source Sans Pro", system-ui, -apple-system, BlinkMacSystemFont,
                    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 300;
       color: #111;
     }
 
@@ -187,6 +193,14 @@
     }
 
     .content h2 { font-weight: 400; margin-bottom: 1rem; }
+    .content h2 {
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  font-size: 2.2rem;      /* mobile / base */
+  margin-bottom: 1.2rem;
+}
 
 .content p {
   line-height: 1.6;
@@ -198,8 +212,68 @@
   margin-bottom: 0;
 }
 
+/* ===================== RICH SUBSECTIONS ===================== */
+.rich { text-align: left; }
+.rich p { margin: 0 0 0.85rem; }
+.rich p:last-child { margin-bottom: 0; }
+
+.subhead{
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 1.35rem 0 0.55rem;
+  font-size: 1.35rem;   /* bigger on mobile + default */
+  line-height: 1.25;
+}
+
+.bullets{
+  margin: 0.35rem 0 0.9rem;
+  padding-left: 1.15rem;
+}
+.bullets li{
+  margin: 0.35rem 0;
+  line-height: 1.55;
+}
+
+.note{
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.04);
+}
+.note strong{ font-weight: 600; }
+
+.card{
+  margin-top: 1.1rem;
+  padding: 1.05rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(0,0,0,0.03);
+}
+.card .title{
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+  font-size: 1.25rem;     /* bigger emoji-title */
+  line-height: 1.25;
+}
+.meta{
+  font-size: 0.98rem;
+  opacity: 0.9;
+  margin-bottom: 0.25rem;
+}
+.small{
+  font-size: 0.98rem;
+  opacity: 0.95;
+}
+
+@media (min-width: 769px) {
+  .subhead { font-size: 1.6rem; }
+  .note, .card { padding: 1.1rem 1.25rem; }
+}
+@media (min-width: 769px) {
+  .card .title { font-size: 1.45rem; }
+}
+
     @media (min-width: 769px) {
-      .content h2 { font-size: 2rem; }
+      .content h2 { font-size: 2.8rem; }
       .content p { font-size: 1.35rem; line-height: 1.75; }
     }
 
@@ -241,22 +315,21 @@
   <section id="details">
     <div class="content">
       <h2 data-i18n="details.title">Dettagli</h2>
-      <p data-i18n="details.ceremony"></p>
-      <p data-i18n="details.lunch"></p>
+      <div class="rich" data-i18n="details.body"></div>
     </div>
   </section>
 
   <section id="travel">
     <div class="content">
       <h2 data-i18n="travel.title">Come arrivare</h2>
-      <p data-i18n="common.comingSoon"></p>
+      <div class="rich" data-i18n="travel.body"></div>
     </div>
   </section>
 
   <section id="accommodation">
     <div class="content">
       <h2 data-i18n="accommodation.title">Dove alloggiare</h2>
-      <p data-i18n="common.comingSoon"></p>
+      <div class="rich" data-i18n="accommodation.body"></div>
     </div>
   </section>
 
@@ -286,13 +359,48 @@
           "nav.rsvp": "RSVP",
 
           "details.title": "Dettagli",
-          "details.ceremony":
-            "La cerimonia si terrà presso la <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>chiesa di Roata Chiusani</a> il 6 giugno alle ore 10:30.",
-          "details.lunch":
-            "Il pranzo seguirà presso la <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a>.",
+          "details.body": `
+            <p>Con immensa gioia, siamo lieti di invitarvi al nostro matrimonio per celebrare insieme l'amore che ci unisce.</p>
+            <p>Il <strong>6 giugno 2026</strong> la celebrazione si terrà nella <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>Chiesa Parrocchiale di San Bernardo Abate</a> (Frazione Roata Chiusani, Centallo CN) alle <strong>10:30</strong>.</p>
+            <p>I festeggiamenti proseguiranno alla <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a> (Via Fontana Canonica, Frazione Airale, 7/bis, Valloriate CN).</p>
+          `,
 
           "travel.title": "Come arrivare",
+          "travel.body": `
+            <h3 class="subhead">✈️ In aereo</h3>
+            <p>L’aeroporto più vicino è <strong>Torino Caselle (TRN)</strong>, consigliato per comodità. <strong>Milano Malpensa (MXP)</strong> è un’alternativa possibile, ma decisamente più distante.</p>
+            <p>Da Torino Caselle vi suggeriamo di <strong>noleggiare un’auto</strong>, la soluzione più pratica per raggiungere Cuneo, gli alloggi e la location del matrimonio.</p>
+            <p class="small"><strong>Percorso in auto da Torino Caselle:</strong> Tangenziale (A55) in direzione A6 – Savona. Proseguire fino all’uscita <strong>Fossano</strong>, quindi seguire le strade statali/regionali verso <strong>Cuneo</strong> / centro valle secondo la destinazione del vostro alloggio o della cerimonia.</p>
+
+            <h3 class="subhead">🚆 In treno</h3>
+            <p>Da <strong>Torino Porta Nuova</strong> partono treni regionali per <strong>Cuneo</strong> / <strong>Centallo</strong>, diretti o con cambio a <strong>Fossano</strong>. Una volta arrivati, sarà necessario proseguire in auto, poiché la chiesa e la location non sono raggiungibili con i mezzi pubblici.</p>
+
+            <h3 class="subhead">🚙 In auto</h3>
+            <p>Se viaggiate in auto, sarà sufficiente seguire le indicazioni di Google Maps verso la chiesa, la location o il vostro alloggio.</p>
+
+            <div class="note">
+              <p><strong>ℹ️ Nota utile</strong><br/>Per gli spostamenti durante il giorno e il weekend del matrimonio, l’auto è fortemente consigliata.</p>
+              <p><strong>✔️ Car pooling</strong><br/>Se volete organizzare car pooling, possiamo aiutarvi a mettere in contatto gli ospiti che arrivano in orari simili. Abbiamo organizzato una chat WhatsApp dedicata <a href="#" target="_blank">qui</a>.</p>
+            </div>
+          `,
           "accommodation.title": "Dove alloggiare",
+          "accommodation.body": `
+            <p>Per aiutarvi a organizzare al meglio il vostro soggiorno, abbiamo raccolto alcune proposte di alloggio nei dintorni della location del matrimonio: strutture <strong>in valle</strong>, più vicine alla festa e immerse nella natura, e strutture <strong>in città (Cuneo)</strong>, più vicine alla chiesa dove si terrà la cerimonia.</p>
+
+            <div class="card">
+              <div class="title">🌿 Dormire in valle</div>
+              <p class="meta"><strong>Locanda Fungo Reale</strong> · 📍 Presso la location del matrimonio</p>
+              <p class="small"><a href='https://www.locandafungoreale.it' target='_blank'>www.locandafungoreale.it</a></p>
+              <p>Una locanda accogliente immersa nella tranquillità della valle, perfetta per chi desidera soggiornare vicino al luogo dei festeggiamenti e godersi appieno il weekend.</p>
+              <p class="small"><strong>Nota:</strong> se desiderate pernottare presso la Locanda Fungo Reale, vi chiediamo di comunicarcelo: ci occuperemo noi direttamente della prenotazione.</p>
+            </div>
+
+            <div class="card">
+              <div class="title">🏙️ Dormire a Cuneo (città)</div>
+              <p>Per chi preferisce soggiornare in città, Cuneo offre diverse soluzioni alberghiere e B&amp;B, facilmente raggiungibili in auto dalla location del matrimonio e comode per muoversi in autonomia.</p>
+              <p class="small">Vi consigliamo di prenotare con anticipo e di scegliere la struttura più adatta alle vostre esigenze.</p>
+            </div>
+          `,
           "gift.title": "Regalo di nozze",
           "rsvp.title": "RSVP",
 
@@ -307,13 +415,48 @@
           "nav.rsvp": "RSVP",
 
           "details.title": "Details",
-          "details.ceremony":
-            "The ceremony will take place at the <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>church of Roata Chiusani</a> on June 6 at 10:30am.",
-          "details.lunch":
-            "Lunch will follow at <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a>.",
+          "details.body": `
+            <p>With immense joy, we are delighted to invite you to our wedding to celebrate together the love that unites us.</p>
+            <p>On <strong>June 6, 2026</strong>, the ceremony will take place at the <a href='https://maps.app.goo.gl/tNNDYr8jV97CAnNj8' target='_blank'>Parish Church of San Bernardo Abate</a> (Roata Chiusani hamlet, Centallo CN) at <strong>10:30</strong>.</p>
+            <p>Celebrations will continue at <a href='https://maps.app.goo.gl/cNHu2r9WH1EdeGcu7' target='_blank'>Locanda Fungo Reale</a> (Via Fontana Canonica, Frazione Airale 7/bis, Valloriate CN).</p>
+          `,
 
           "travel.title": "Travel",
+          "travel.body": `
+            <h3 class="subhead">✈️ By plane</h3>
+            <p>The closest airport is <strong>Turin Caselle (TRN)</strong>, recommended for convenience. <strong>Milan Malpensa (MXP)</strong> is a possible alternative, but significantly farther away.</p>
+            <p>From Turin Caselle we suggest <strong>renting a car</strong>, which is the most practical way to reach Cuneo, your accommodation, and the wedding venues.</p>
+            <p class="small"><strong>Driving route from Turin Caselle:</strong> Take the ring road (A55) towards the A6 – Savona. Continue to the <strong>Fossano</strong> exit, then follow state/regional roads towards <strong>Cuneo</strong> / the valley area depending on your accommodation or the ceremony.</p>
+
+            <h3 class="subhead">🚆 By train</h3>
+            <p>From <strong>Torino Porta Nuova</strong> there are regional trains to <strong>Cuneo</strong> / <strong>Centallo</strong>, direct or with a change in <strong>Fossano</strong>. Once you arrive, you will need a car, as the church and the reception venue cannot be reached by public transport.</p>
+
+            <h3 class="subhead">🚙 By car</h3>
+            <p>If you are driving, simply follow Google Maps directions to the church, the venue, or your accommodation.</p>
+
+            <div class="note">
+              <p><strong>ℹ️ Useful note</strong><br/>For getting around on the wedding day and weekend, a car is strongly recommended.</p>
+              <p><strong>✔️ Car pooling</strong><br/>If you would like to arrange car pooling, we can help connect guests arriving at similar times. We created a dedicated WhatsApp chat <a href="#" target="_blank">here</a>.</p>
+            </div>
+          `,
           "accommodation.title": "Accommodation",
+          "accommodation.body": `
+            <p>To help you plan your stay, we have collected a few accommodation options near the wedding venues: places <strong>in the valley</strong>, closer to the reception and surrounded by nature, and places <strong>in the city (Cuneo)</strong>, closer to the church where the ceremony will take place.</p>
+
+            <div class="card">
+              <div class="title">🌿 Stay in the valley</div>
+              <p class="meta"><strong>Locanda Fungo Reale</strong> · 📍 At the wedding venue</p>
+              <p class="small"><a href='https://www.locandafungoreale.it' target='_blank'>www.locandafungoreale.it</a></p>
+              <p>A welcoming inn in the quiet of the valley, ideal if you want to stay close to the celebrations and fully enjoy the weekend.</p>
+              <p class="small"><strong>Note:</strong> if you would like to stay at Locanda Fungo Reale, please let us know—we will handle the booking directly.</p>
+            </div>
+
+            <div class="card">
+              <div class="title">🏙️ Stay in Cuneo (city)</div>
+              <p>If you prefer staying in town, Cuneo offers many hotel and B&amp;B options. They are easy to reach by car from the reception venue and convenient for moving around independently.</p>
+              <p class="small">We recommend booking early and choosing the option that best fits your needs.</p>
+            </div>
+          `,
           "gift.title": "Wedding gift",
           "rsvp.title": "RSVP",
 
