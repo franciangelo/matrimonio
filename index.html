@@ -238,6 +238,7 @@
     .bullets li{
       margin: 0.35rem 0;
       line-height: 1.55;
+      font-size: 1.1rem;
     }
 
     .note{
@@ -272,6 +273,7 @@
 
     @media (min-width: 769px) {
       .subhead { font-size: 1.6rem; }
+      .bullets li { font-size: 1.25rem; }
       .note, .card { padding: 1.1rem 1.25rem; }
     }
     @media (min-width: 769px) {
@@ -303,9 +305,9 @@
     <div class="nav-left" id="nav-menu">
       <a href="#hero" data-i18n="nav.home">Home</a>
       <a href="#details" data-i18n="nav.details">Dettagli</a>
+      <a href="#gift" data-i18n="nav.gift">Regalo di nozze</a>
       <a href="#travel" data-i18n="nav.travel">Come arrivare</a>
       <a href="#accommodation" data-i18n="nav.accommodation">Dove alloggiare</a>
-      <a href="#gift" data-i18n="nav.gift">Regalo di nozze</a>
       <a href="#rsvp" data-i18n="nav.rsvp">Conferma di partecipazione</a>
       <!-- NEW SECTION LINK -->
       <a href="#weekend" data-i18n="nav.weekend">Attività</a>
@@ -327,6 +329,13 @@
     </div>
   </section>
 
+  <section id="gift">
+    <div class="content">
+      <h2 data-i18n="gift.title">Regalo di nozze</h2>
+      <div class="rich" data-i18n="gift.body"></div>
+    </div>
+  </section>
+
   <section id="travel">
     <div class="content">
       <h2 data-i18n="travel.title">Come arrivare</h2>
@@ -338,13 +347,6 @@
     <div class="content">
       <h2 data-i18n="accommodation.title">Dove alloggiare</h2>
       <div class="rich" data-i18n="accommodation.body"></div>
-    </div>
-  </section>
-
-  <section id="gift">
-    <div class="content">
-      <h2 data-i18n="gift.title">Regalo di nozze</h2>
-      <div class="rich" data-i18n="gift.body"></div>
     </div>
   </section>
 
@@ -422,18 +424,30 @@
 
           "gift.title": "Regalo di nozze",
           "gift.body": `
-            <p>Se vuoi aiutarci a rendere speciale il nostro viaggio di nozze, un indimenticabile road trip negli Stati Uniti, puoi contribuire con un versamento a:</p>
+            <p>Vorremmo che il nostro matrimonio diventasse anche un'occasione di condivisione e di aiuto per chi ha più bisogno.</p>
+            <p>Se vi fa piacere, prima di pensare al regalo di nozze potete considerare una donazione a favore di una o più organizzazioni qui sotto.</p>
 
             <div class="card">
-              <div class="title">💝 Dati per il bonifico</div>
+              <div class="title">❤️ Donazione solidale (facoltativa)</div>
+              <ul class="bullets">
+                <li><strong>Mediterranea - Sostieni le missioni:</strong> <a href="https://share.google/CqiIbgSCnpHQc6R6J" target="_blank" rel="noopener">link</a></li>
+                <li><strong>Gaza - MSF (Medici Senza Frontiere):</strong> <a href="https://www.medicisenzafrontiere.it/landing/gaza/" target="_blank" rel="noopener">link</a></li>
+                <li><strong>Ucraina - Ukrainian Red Cross Society:</strong> <a href="https://donate.redcrossredcrescent.org" target="_blank" rel="noopener">link</a></li>
+              </ul>
+            </div>
+
+            <div class="note">
+              <p><strong>Il nostro impegno</strong><br/>Destineremo il <strong>15%</strong> di quanto riceveremo in regalo a sostegno di queste realtà. Con il resto del regalo contribuirete al nostro viaggio di nozze: <strong>il nostro road trip negli Stati Uniti</strong>.</p>
+            </div>
+
+            <div class="card">
+              <div class="title">💝 Coordinate per il versamento</div>
 
               <p class="meta"><strong>Beneficiario</strong><br/>Francesca Rinaudo</p>
 
               <p class="meta"><strong>IBAN</strong><br/>BE50 6509 4154 9018</p>
 
               <p class="meta"><strong>BIC/SWIFT</strong><br/>REVOBEB2</p>
-
-              <p class="meta"><strong>BIC banca corrispondente</strong><br/>CHASDEFX</p>
             </div>
           `,
 
@@ -561,7 +575,21 @@
 
           "gift.title": "Wedding gift",
           "gift.body": `
-            <p>If you would like to contribute to our honeymoon — a road trip across the United States — you can do so by making a transfer to:</p>
+            <p>We would love our wedding to also be a moment of sharing and support for people in need.</p>
+            <p>If you wish, before choosing our wedding gift, you may consider donating to one or more of the organizations below.</p>
+
+            <div class="card">
+              <div class="title">❤️ Optional charity donation</div>
+              <ul class="bullets">
+                <li><strong>Mediterranea - Support their missions:</strong> <a href="https://share.google/CqiIbgSCnpHQc6R6J" target="_blank" rel="noopener">link</a></li>
+                <li><strong>Gaza - MSF (Doctors Without Borders):</strong> <a href="https://www.medicisenzafrontiere.it/landing/gaza/" target="_blank" rel="noopener">link</a></li>
+                <li><strong>Ukraine - Ukrainian Red Cross Society:</strong> <a href="https://donate.redcrossredcrescent.org" target="_blank" rel="noopener">link</a></li>
+              </ul>
+            </div>
+
+            <div class="note">
+              <p><strong>Our commitment</strong><br/>We will donate <strong>15%</strong> of all wedding gifts we receive to support these organizations. The remaining part will contribute to our honeymoon: <strong>our road trip in the United States</strong>.</p>
+            </div>
 
             <div class="card">
               <div class="title">💝 Bank details</div>
@@ -571,8 +599,6 @@
               <p class="meta"><strong>IBAN</strong><br/>BE50 6509 4154 9018</p>
 
               <p class="meta"><strong>BIC/SWIFT code</strong><br/>REVOBEB2</p>
-
-              <p class="meta"><strong>Correspondent bank BIC</strong><br/>CHASDEFX</p>
             </div>
           `,
 
